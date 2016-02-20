@@ -4,9 +4,10 @@
     <meta charset="utf-8">
     <title>{% block title %}My Site{% endblock %}</title>
     <link rel="stylesheet" href="css/styles.css"/>
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    {% block head %}{% endblock %}
   </head>
-  <body>
-    {% block head %}{% endblock %}    
+  <body class="body_color">  
     {% block content %}{% endblock %}
   </body>
 </html>
