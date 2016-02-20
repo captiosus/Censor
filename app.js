@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
-var path = require('path')
+var path = require('path');
+var tesseract = require('node-tesseract');
 swig = require('swig');
 
 app.engine('html', swig.renderFile);
@@ -15,5 +16,10 @@ swig.setDefaults({ cache: false });
 app.get('/', function (req, res) {
   res.render('index');
 });
+
+app.get('/scan', function(req, res){
+  res.render('scan');
+});
+
 
 app.listen(3000);
