@@ -161,6 +161,6 @@ c.fillText("3400072374USA6402201M260220235478511890988765<<87392010234",300 + sh
 
 function draw(c) {
   check(c);
-  text(c, 600);
-  passport(c, 1200);
+  text(c, 0);
+  passport(c, 0);
 }
