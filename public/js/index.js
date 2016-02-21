@@ -350,3 +350,33 @@ function draw(c) {
   text(c, 600);
   passport(c, 1200);
 }
+function checkBlacked(c){
+    c.beginPath();
+    c.rect(78,125,125,50);
+    c.rect(65,315,280,16);
+    c.fill();
+    c.stroke();
+    c.closePath();
+}
+function passportBlacked(c){
+    c.beginPath();
+    c.rect(428,90,65,10);
+    c.rect(90,340,420,25);
+    c.rect(252,120,40,10);
+    c.rect(252,195,70,10);
+    c.fill();
+    c.stroke();
+    c.closePath();
+}
+function textBlacked(c){
+    c.beginPath();
+    c.rect(208,166,110,7);
+    c.rect(200,73,30,7);
+    c.rect(175,83,100,20);
+    c.rect(160,306,45,7);
+    c.rect(287,337,145,7);
+    c.rect(355,405,80,9);
+    c.fill();
+    c.stroke();
+    c.closePath();
+}
