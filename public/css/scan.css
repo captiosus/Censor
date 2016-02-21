@@ -8,6 +8,10 @@
   border-top: 6px solid #DF0101;
   display: inline-block;
 }
+.classified a{
+  color: #DF0101;
+  text-decoration: none;
+}
 .header {
   text-align: center;
 }
