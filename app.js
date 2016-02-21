@@ -1,18 +1,14 @@
 var express = require('express');
 var app = express();
 var morgan = require('morgan');
-var multer = require('multer');
+var busboy = require('connect-busboy');
 var path = require('path');
 var tesseract = require('node-tesseract');
 var fs = require('fs');
 var gm = require('gm');
 // var utils = require("./utils")
 
-var storage = multer.memoryStorage();
-var limits = { fileSize:2000000 };
-var upload = multer({storage:storage, limits:limits});
-
-app.use(morgan('combined'));
+app.use(morgan('dev'));
 
 swig = require('swig');
 app.engine('html', swig.renderFile);
@@ -40,7 +36,7 @@ app.post('/upload', upload.single('image'), function(req, res){
     gm(image.buffer, image.originalname)
     .toBuffer('TIFF', function(err, buffer){
       if(err) console.log(err);
-      image.mimetype="image/tiff";
+      image.mimetype="application/pdf";
       image.buffer = buffer;
       var embed = "data:" + image.mimetype + ";base64," + image.buffer;
       console.log(image);
