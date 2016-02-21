@@ -106,10 +106,63 @@ c.stroke();
 c.closePath();
 
 c.font="bold 17px Georgia";
+c.strokeStyle="#000099";
 c.strokeText("UNITED STATES OF AMERICA",250,75);
+c.font="bold 11px Arial";
+c.fillStyle="#000099";
+c.textAlign="center";
+c.fillText("PASSPORT",165,73);
+c.fillText("PASSEPORT",165,85);
+c.fillText("PASAPORTE",165,97);
+c.fillStyle="black";
+c.textAlign="start";
 
-c.font="12px Arial";
-c.fillText("P                   USA                    340007237",278,90);
+c.strokeStyle="black";
+c.font="8px Arial";
+c.fillText("Type                            Code                                     Passport No.",250,88);
+c.fillText("Surname",250,118);
+c.fillText("Given Names",250,143);
+c.fillText("Nationality",250,168);
+c.fillText("Date of birth",250,193);
+c.fillText("Place of birth",250,218);
+c.fillText("Date of issue",250,243);
+c.fillText("Date of expiration",250,268);
+c.fillText("Endorsements",250,293);
+
+c.font="bold 12px Arial";
+c.fillText("P                   USA                    340007237",278,100);
+c.fillText("SMITH",252,130);
+c.fillText("JOHN",252,155);
+c.fillText("UNITED STATES OF AMERICA",252,180);
+c.fillText("20 FEB 1964",252,205);
+c.fillText("New York, U.S.A",252,230);
+c.fillText("21 FEB 2016",252,255);
+c.fillText("20 FEB 2026",252,280);
+c.fillText("SEE PAGE 27",265,305);
+
+c.textAlign="center";
+c.fillText("United States",485,255);
+c.fillText("Department of State",485,265);
+c.fillText("F",485,230);
+c.font="8px Arial";
+c.fillText("Authority",485,243);
+c.fillText("Sex",485,218);
+
+c.rect(105,125,125,165);
+c.stroke
+
+c.font="bold 30px Georgia";
+c.textAlign="start";
+c.strokeText("USA",460,313);
+
+c.moveTo(50,320);
+c.lineTo(550,320);
+c.stroke();
+
+c.textAlign="center";
+c.font="bold 12px Arial";
+c.fillText("P<USASMITH<<JOHN<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",300,350);
+c.fillText("3400072374USA6402201M260220235478511890988765<<87392010234",300,365);
 
 }
 
