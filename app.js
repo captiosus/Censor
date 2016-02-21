@@ -65,6 +65,9 @@ app.post('/upload', function(req, res){
   console.log('hi');
   var files = req.files;
   for (var i = 0; i < files.length; i++){
+    var tessoptions = {
+      config:"hocr"
+    }
     var file = files[i];
     console.log(file.mimetype);
     var converted = false;
@@ -81,7 +84,7 @@ app.post('/upload', function(req, res){
           file.mimetype = "image/tiff";
 
           converted = "pdf";
-          tesseract.process(file.filepath, function(err, text){
+          tesseract.process(file.filepath, tessoptions, function(err, text){
             console.log(err);
             console.log("text", text);
           });
@@ -89,7 +92,7 @@ app.post('/upload', function(req, res){
       });
     }else{
       tesseract.process(file.filepath, function(err, text){
-        console.log(err);
+        console.log("err", err);
         console.log("text", text);
       });
     }
