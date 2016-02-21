@@ -5,6 +5,7 @@ var multer = require('multer');
 var path = require('path');
 var tesseract = require('node-tesseract');
 var fs = require('fs');
+var gm = require('gm');
 // var utils = require("./utils")
 
 var storage = multer.memoryStorage();
@@ -34,12 +35,36 @@ app.get('/scan', function(req, res){
 
 app.post('/upload', upload.single('image'), function(req, res){
   var image = req.file;
-  var embed = "data:" + image.mimetype + ";base64,"  + image.buffer.toString('base64');
-  if (image.mimetype.split('/')[0] == "image"){
-    res.render('view', {image:embed});
-  }else if(image.mimetype.split('/')[0] == "application"){
-    res.render('view', {application:embed});
+  console.log(image);
+  if (image.mimetype == "application/pdf"){
+    gm(image.buffer, image.originalname)
+    .toBuffer('TIFF', function(err, buffer){
+      if(err) console.log(err);
+      image.mimetype="application/tiff";
+      image.buffer = buffer;
+      console.log(image);
+    });
   }
+  
+
+
+
+  // if (image.mimetype.split('/')[0] == "image"){
+  //   res.render('view', {image:embed});
+  // }else if(image.mimetype.split('/')[0] == "application"){
+  //   var tiffbuffer = req.file.buffer;
+  //   res.render('view', {application:embed});
+  //   gm(req.file.buffer)
+  //   .toBuffer('TIFF', function(err, buffer){
+  //     if(err) {
+  //       console.log(err);
+  //       return err;
+  //     }
+  //     tiffbuffer = buffer;
+  //     image.mimetype = "application/tiff";
+  //     console.log(tiffbuffer);
+  //   });
+  // }
 });
 
 app.get('/view', function(req, res){
