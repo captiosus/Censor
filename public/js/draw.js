@@ -1,13 +1,12 @@
 var canvas = document.getElementById("index-drawings");
-canvas.width = 170;
-canvas.height = 220;
+// letter documents are 220 x 170
+canvas.width = 600;
+canvas.height = 450;
 
-var c = canvas.getContent("2d");
+//draws text document
+var c = canvas.getContext("2d");
 c.beginPath();
-c.fillStyle(#000000);
-c.moveTo(50,50);
-c.lineTo(150,165);
-c.lineTo(25,30);
-c.fill();
+c.strokeStyle= "#000000";
+c.rect(172,60,225,330);
 c.stroke();
 c.closePath();
