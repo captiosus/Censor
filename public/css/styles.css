@@ -10,13 +10,10 @@
   letter-spacing: 3px;
   color: #DF0101;
   border-bottom: 6px solid #DF0101;
-  border-top: 6px solid #DF0101;
-  margin-top: 5px;
 }
 
 .button-container {
   text-align: center;
-  margin-top:10px;
   margin-bottom: 40px;
 }
 .button {
@@ -40,8 +37,8 @@
   position: absolute;
   left: 0px;
   top: 0px;
-  height: 46px;
-  width: 2px;
+  height: 40px;
+  width: 1px;
   background-color: #FF1A1A;
 }
 #index-drawings {
