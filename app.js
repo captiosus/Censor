@@ -58,9 +58,10 @@ app.use(function(req, res, next){
 });
 app.post('/upload', function(req, res){
   console.log('hi');
-  console.log(req.files);
-  var file = req.files[0];
-  console.log(file.file);
+  var files = req.files;
+  for (var i = 0; i < files.length; i++){
+    var file = files[i];
+  }
   res.send(JSON.stringify(req.files));
 })
 
