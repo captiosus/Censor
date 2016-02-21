@@ -1,4 +1,4 @@
-var SELECTOR_COLOR = "white";
+var SELECTOR_COLOR = "transparent";
 var SELECTOR_SELECTED = "black";
 
 var scan = document.getElementById("start-scan");
@@ -28,18 +28,30 @@ ctx.fillStyle = "blue";
 ctx.fillRect(600, 0, 300, 300);
 
 function selector_func() {
-  var number = (this.id).substr(9);
+  var selected_curr = (this.id).substr(9);
+  var selected_past = 0;
   var selector = document.getElementsByClassName("selector-circle");
   var i;
   for (i = 0; i < selector.length; i++) {
-    selector[i].style.backgroundColor = SELECTOR_COLOR;
+    if (selector[i].style.backgroundColor == SELECTOR_SELECTED) {
+      selector[i].style.backgroundColor = SELECTOR_COLOR;
+      selected_past = (selector[i].id).substr(9);
+    }
   }
   this.style.backgroundColor = SELECTOR_SELECTED;
   var changed = 0;
+  var target = 300 * (selected_curr - selected_past);
+  change_amount = -5;
+  if (target < 0) {
+    change_amount*=-1;
+    target*=-1;
+  }
+  console.log(target);
+  console.log(change_amount);
   var draw_interval = window.setInterval(function () {
-    if (changed < 300) {
+    if (changed < target) {
       changed+=5;
-      ctx.translate(-5, 0);
+      ctx.translate(change_amount, 0);
       ctx.fillStyle = "red";
       ctx.fillRect(0, 0, 300, 300);
       
