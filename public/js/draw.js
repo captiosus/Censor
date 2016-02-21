@@ -27,6 +27,19 @@ c.fillText("The Staff of Classified",335 + shift,413);
 c.closePath();
 }
 
+function textBlacked(c){
+    c.beginPath();
+    c.rect(208,166,110,7);
+    c.rect(200,73,30,7);
+    c.rect(175,83,100,20);
+    c.rect(160,306,45,7);
+    c.rect(287,337,145,7);
+    c.rect(355,405,80,9);
+    c.fill();
+    c.stroke();
+    c.closePath();
+}
+
 //draws a check
 function check(c){
 c.beginPath();
@@ -43,7 +56,7 @@ c.closePath();
 
 c.font="bold 20px Courier";
 c.fillText("145",520,132);
-c.fillText("|:011300142+: 12345678||* 0101",40,328);
+c.fillText("|:011300142+: 12345678||* 0145",40,328);
 c.font="bold 16px Arial";
 c.textAlign="center";
 c.fillText("John Smith",140,140);
@@ -92,6 +105,15 @@ c.stroke();
 c.closePath();
 }
 
+function checkBlacked(c){
+    c.beginPath();
+    c.rect(78,125,125,50);
+    c.rect(65,315,280,16);
+    c.fill();
+    c.stroke();
+    c.closePath();
+}
+
 function passport(c, shift){
 c.beginPath();
 c.strokeStyle= "#000000";
@@ -137,7 +159,7 @@ c.fillText("SEE PAGE 27",265 + shift,305);
 c.textAlign="center";
 c.fillText("United States",485 + shift,255);
 c.fillText("Department of State",485 + shift,265);
-c.fillText("F",485 + shift,230);
+c.fillText("M",485 + shift,230);
 c.font="8px Arial";
 c.fillText("Authority",485 + shift,243);
 c.fillText("Sex",485 + shift,218);
@@ -147,7 +169,9 @@ c.stroke
 
 c.font="bold 30px Georgia";
 c.textAlign="start";
-c.strokeText("USA",460 + shift,313);
+c.fillStyle="gold";
+c.fillText("USA",460 + shift,313);
+c.fillStyle="black";
 
 c.moveTo(50 + shift,320);
 c.lineTo(550 + shift,320);
@@ -157,6 +181,17 @@ c.textAlign="center";
 c.font="bold 12px Arial";
 c.fillText("P<USASMITH<<JOHN<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",300 + shift,350);
 c.fillText("3400072374USA6402201M260220235478511890988765<<87392010234",300 + shift,365);
+}
+
+function passportBlacked(c){
+    c.beginPath();
+    c.rect(428,90,65,10);
+    c.rect(90,340,420,25);
+    c.rect(252,120,40,10);
+    c.rect(252,195,70,10);
+    c.fill();
+    c.stroke();
+    c.closePath();
 }
 
 function draw(c) {
