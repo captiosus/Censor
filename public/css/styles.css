@@ -17,19 +17,18 @@
 
 .button-container {
   text-align: center;
+  margin-bottom: 40px;
+}
+.button {
   font-family: 'Montserrat', sans-serif;
   position: relative;
   font-size: 25px;
-}
-
-.button {
   text-decoration: none;
   border-radius: 3px;
   border: 1px solid #000000;
   padding: 5px 10px 5px 10px;
   color: black;
   background-color:white;
-  /*box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);*/
 }
 
 .body_color{
@@ -40,14 +39,19 @@
   display: none;
   position: absolute;
   left: 0px;
-  top: -2px;
-  height: 47px;
+  top: 0px;
+  height: 40px;
   width: 1px;
   background-color: #FF1A1A;
 }
+#index-drawings {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 .middle_title {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 .scan-line-anim {
   animation-name: scan-line;
@@ -59,7 +63,33 @@
   0% {
     left: 0px;
   }
-  100% {
-    left: 236px;
+  99% {
+    left: 202px;
+    opacity: 1;
   }
+  100% {
+    left: 202px;
+    opacity: 0;
+  }
+}
+
+.drawing-select {
+  padding: 0px;
+  text-align: center;
+  list-style: none;
+}
+.drawing-select li {
+  display: inline-block;
+}
+.selector-circle {
+  width: 10px;
+  height: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+.selector-circle:hover {
+  cursor: pointer;
+}
+.drawing-select li+li {
+  margin-left: 10px;
 }
