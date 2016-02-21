@@ -1,10 +1,21 @@
 {% extends "layout.html" %}
 {% block title %}Scan{% endblock %}
+{% block head %}<link rel="stylesheet" href="css/scan.css"/>{% endblock %}
 
 {% block content %}
-<form action="/upload" method="POST" enctype="multipart/form-data">
-<input type="file" name="image"/>
-<input type="submit" value="upload"></input>
-</form>
-
+<div class="header middle_title">
+    <h1 class="classified">IT'S CLASSIFIED</h1>
+  </div>
+<div class="container">
+  <div class="left">
+    <ol id="image-list"></ol>
+  </div>
+  <div class="right">
+    <form action="/upload" method="POST" class="dropzone file-upload" enctype="multipart/form-data">
+    </form>
+    <button id="upload" type="button">Submit</button>
+  </div>
+</div>
+<script src="js/dropzone.js"></script>
+<script src="js/scan.js"></script>
 {% endblock %}
