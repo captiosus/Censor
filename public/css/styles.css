@@ -86,7 +86,7 @@
 .selector-circle {
   width: 10px;
   height: 10px;
-  border: 1px solid black;
+  border: 1px solid #DE564B;
   border-radius: 10px;
 }
 .selector-circle:hover {
@@ -102,9 +102,9 @@
 #red-line {
   background-color: red;
   position: absolute;
-  width: 2px;
-  height: 275px;
-  margin-top: 88px;
+  width: 3px;
+  height: 295px;
+  margin-top: 78px;
   display: none;
 }
 @keyframes passport-line {

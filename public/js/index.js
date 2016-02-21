@@ -1,9 +1,10 @@
 var SELECTOR_COLOR = "transparent";
-var SELECTOR_SELECTED = "black";
+var SELECTOR_SELECTED = "rgb(222, 86, 75)";
 
 var scan = document.getElementById("start-scan");
 var scan_line = document.getElementById("scan-line");
 var red_line = document.getElementById("red-line");
+var selector = document.getElementsByClassName("selector-circle");
 
 scan.addEventListener("mouseover", function(e) {
   e.preventDefault();
@@ -18,21 +19,90 @@ scan.addEventListener("mouseout", function(e) {
 
 var canvas = document.getElementById("index-drawings");
 var ctx = canvas.getContext("2d");
+var check_timeout;
 red_line.style.marginLeft = canvas.offsetLeft + 1 + "px";
-setTimeout(function() {
+check_timeout = setTimeout(function() {
   red_line.style.display = "block";
   red_line.classList.add("check-line");
 }, 1000);
 draw(ctx);
 
+var repeat = setInterval(repeat_select, 7000);
+
+function repeat_select() {
+  red_line.style.display = "none";
+  red_line.classList.remove("passport-line");
+  red_line.classList.remove("text-line");
+  red_line.classList.remove("check-line");
+  clearTimeout(check_timeout);
+  if (!selected) {
+    selected = true;
+    var selected_curr;
+    console.log(selector[0].style.backgroundColor);
+    for (var i = 0; i < selector.length; i++) {
+      if (selector[i].style.backgroundColor == SELECTOR_SELECTED) {
+        selected_past = i;
+        selected_curr = i + 1;
+        selector[i].style.backgroundColor = SELECTOR_COLOR;
+      }
+    }
+    if (selected_curr > 2) {
+      selected_curr = 0;
+    }
+    selector[selected_curr].style.backgroundColor = SELECTOR_SELECTED;
+    var add_class;
+    if (selected_curr === 2) {
+      red_line.style.height = "372px";
+      red_line.style.marginTop = "39px";
+      red_line.style.marginLeft = canvas.offsetLeft + 50 + "px";
+      add_class = "passport-line";
+    }
+    else if (selected_curr === 1) {
+      red_line.style.height = "460px";
+      red_line.style.marginTop = "-5px";
+      red_line.style.marginLeft = canvas.offsetLeft + 125 + "px";
+      add_class = "text-line";
+    }
+    else {
+      red_line.style.height = "295px";
+      red_line.style.marginTop = "78px";
+      red_line.style.marginLeft = canvas.offsetLeft + 1 + "px";
+      add_class = "check-line";
+    }
+    var changed = 0;
+    var target = 600 * (selected_curr - selected_past);
+    change_amount = -10;
+    if (target < 0) {
+      change_amount*=-1;
+      target*=-1;
+    }
+    var draw_interval = window.setInterval(function () {
+      if (changed < target) {
+        changed+=10;
+        ctx.translate(change_amount, 0);
+        draw(ctx);
+      }
+      else {
+        selected = false;
+        clearInterval(draw_interval);
+        check_timeout = setTimeout(function() {
+          red_line.style.display = "block";
+          red_line.classList.add(add_class);
+        }, 1000);
+      }
+    }, 5);
+  }
+}
+
 var selected = false;
-var check_timeout;
 function selector_func() {
   red_line.style.display = "none";
   red_line.classList.remove("passport-line");
   red_line.classList.remove("text-line");
   red_line.classList.remove("check-line");
   clearTimeout(check_timeout);
+  clearInterval(repeat);
+  repeat = setInterval(repeat_select, 5000);
   add_class = "";
   if (!selected) {
     selected = true;
@@ -40,24 +110,23 @@ function selector_func() {
     var selected_past = 0;
     var add_class;
     if (selected_curr === "2") {
-      red_line.style.height = "352px";
-      red_line.style.marginTop = "49px";
+      red_line.style.height = "372px";
+      red_line.style.marginTop = "39px";
       red_line.style.marginLeft = canvas.offsetLeft + 50 + "px";
       add_class = "passport-line";
     }
     else if (selected_curr === "1") {
-      red_line.style.height = "440px";
-      red_line.style.marginTop = "5px";
+      red_line.style.height = "460px";
+      red_line.style.marginTop = "-5px";
       red_line.style.marginLeft = canvas.offsetLeft + 125 + "px";
       add_class = "text-line";
     }
     else {
-      red_line.style.height = "275px";
-      red_line.style.marginTop = "88px";
+      red_line.style.height = "295px";
+      red_line.style.marginTop = "78px";
       red_line.style.marginLeft = canvas.offsetLeft + 1 + "px";
       add_class = "check-line";
     }
-    var selector = document.getElementsByClassName("selector-circle");
     var i;
     for (i = 0; i < selector.length; i++) {
       if (selector[i].style.backgroundColor == SELECTOR_SELECTED) {
@@ -80,8 +149,8 @@ function selector_func() {
         draw(ctx);
       }
       else {
-        clearInterval(draw_interval);
         selected = false;
+        clearInterval(draw_interval);
         check_timeout = setTimeout(function() {
           red_line.style.display = "block";
           red_line.classList.add(add_class);
@@ -91,7 +160,6 @@ function selector_func() {
   }
 }
 
-var selector = document.getElementsByClassName("selector-circle");
 var i;
 selector[0].style.backgroundColor = SELECTOR_SELECTED;
 for (i = 0; i < selector.length; i++) {
