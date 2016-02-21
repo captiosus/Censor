@@ -10,11 +10,13 @@
   letter-spacing: 3px;
   color: #DF0101;
   border-bottom: 6px solid #DF0101;
+  border-top: 6px solid #DF0101;
 }
 
 .button-container {
   text-align: center;
-  margin-bottom: 40px;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
 .button {
   font-family: 'Montserrat', sans-serif;
@@ -45,6 +47,9 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
 }
 .middle_title {
   display: flex;
@@ -89,4 +94,94 @@
 }
 .drawing-select li+li {
   margin-left: 10px;
+}
+.canvas-container {
+  height: 450px;
+  position: relative;
+}
+#red-line {
+  background-color: red;
+  position: absolute;
+  width: 2px;
+  height: 275px;
+  margin-top: 88px;
+  display: none;
+}
+@keyframes passport-line {
+  0% {
+    -ms-transform: translate(0px,0px);
+   	-webkit-transform: translate(0px,0px);
+    transform: translate(0px,0px);
+    opacity: 1;
+  }
+  99% {
+    -ms-transform: translate(500px,0px);
+   	-webkit-transform: translate(500px,0px);
+    transform: translate(500px,0px);
+    opacity: 1;
+  }
+  100% {
+    -ms-transform: translate(500px,0px);
+   	-webkit-transform: translate(500px,0px);
+    transform: translate(500px,0px);
+    opacity: 0;
+  }
+}
+.passport-line {
+  animation-name: passport-line;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+@keyframes check-line {
+  0% {
+    -ms-transform: translate(0px,0px);
+   	-webkit-transform: translate(0px,0px);
+    transform: translate(0px,0px);
+    opacity: 1;
+  }
+  99% {
+    -ms-transform: translate(598px,0px);
+   	-webkit-transform: translate(598px,0px);
+    transform: translate(598px,0px);
+    opacity: 1;
+  }
+  100% {
+    -ms-transform: translate(598px,0px);
+   	-webkit-transform: translate(598px,0px);
+    transform: translate(598px,0px);
+    opacity: 0;
+  }
+}
+.check-line {
+  animation-name: check-line;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+@keyframes text-line {
+  0% {
+    -ms-transform: translate(0px,0px);
+   	-webkit-transform: translate(0px,0px);
+    transform: translate(0px,0px);
+    opacity: 1;
+  }
+  99% {
+    -ms-transform: translate(350px,0px);
+   	-webkit-transform: translate(350px,0px);
+    transform: translate(350px,0px);
+    opacity: 1;
+  }
+  100% {
+    -ms-transform: translate(350px,0px);
+   	-webkit-transform: translate(350px,0px);
+    transform: translate(350px,0px);
+    opacity: 0;
+  }
+}
+.text-line {
+  animation-name: text-line;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
 }
