@@ -33,7 +33,8 @@ app.get('/scan', function(req, res){
 
 app.post('/upload', upload.single('image'), function(req, res){
   var image = req.file;
-  res.render('view', {image:req.file.buffer.toString('7bit'), });
+  var embed = "data:" + image.mimetype + ";base64,"  + image.buffer.toString('base64');
+  res.render('view', {image:embed});
 });
 
 app.get('/view', function(req, res){
