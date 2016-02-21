@@ -40,4 +40,12 @@ app.post('/upload', function(req, res){
 });
 
 
+app.get('/view/:imageName/:accessKey', function(req, res){
+  var imageName = req.params.imageName,
+      accessKey = req.params.accessKey;
+      res.render('view', {imageName:})
+});
+
+
 app.listen(3000);
+console.log("Server started on port 3000");
