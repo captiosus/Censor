@@ -40,12 +40,14 @@ app.post('/upload', upload.single('image'), function(req, res){
     gm(image.buffer, image.originalname)
     .toBuffer('TIFF', function(err, buffer){
       if(err) console.log(err);
-      image.mimetype="application/tiff";
+      image.mimetype="image/tiff";
       image.buffer = buffer;
+      var embed = "data:" + image.mimetype + ";base64," + image.buffer;
       console.log(image);
+      res.render('view', {application:embed});
     });
   }
-  
+
 
 
 
