@@ -61,17 +61,21 @@ app.use(function(req, res, next){
     req.pipe(req.busboy);
   }
 });
+
+var tesser = function(filepath){
+  var tessoptions = {config:"hocr"};
+  tesseract.process(filepath, tessoptions, function(err, text){
+    console.log(text);
+    return text.toString();
+  });
+};
+
 app.post('/upload', function(req, res){
-  console.log('hi');
   var files = req.files;
-  for (var i = 0; i < files.length; i++){
-    var tessoptions = {
-      config:"hocr"
-    }
+
+  for (var i = 0; i < files.length; i++){//process each file
     var file = files[i];
-    console.log(file.mimetype);
-    var converted = false;
-    if (file.mimetype == "application/pdf"){
+    if (file.mimetype == "application/pdf"){//special case for pdfs
       var newfilepath = __dirname + "/uploads/" + file.filename.replace(/\.[^/.]+$/, "") + ".tiff";
       var im = gm.subClass({imagemagick:true});
       im(file.filepath)
@@ -82,22 +86,13 @@ app.post('/upload', function(req, res){
           file.filename = file.filename.replace(/\.[^/.]+$/, "") + ".tiff"
           file.filepath = newfilepath;
           file.mimetype = "image/tiff";
-
-          converted = "pdf";
-          tesseract.process(file.filepath, tessoptions, function(err, text){
-            console.log(err);
-            console.log("text", text);
-          });
+          res.send(tesser(file.filepath));
         }
       });
     }else{
-      tesseract.process(file.filepath, function(err, text){
-        console.log("err", err);
-        console.log("text", text);
-      });
+      res.send(tesser(file.filepath, res));
     }
   }
-  res.send(JSON.stringify(req.files));
 })
 
 
