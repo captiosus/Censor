@@ -30,11 +30,10 @@ app.get('/scan', function(req, res){
   res.render('scan');
 });
 
+
 app.post('/upload', upload.single('image'), function(req, res){
-  console.log('hi');
-  console.log(req.file);
-  res.write('hello');
-  res.end();
+  var image = req.file;
+  res.render('view', {image:req.file.buffer.toString('7bit'), });
 });
 
 app.get('/view', function(req, res){
