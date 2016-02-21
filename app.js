@@ -39,15 +39,20 @@ app.use(function(req, res, next){
   if(req.busboy){
     req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype){
       if(!req.files) req.files = [];
+      var filepath = __dirname + "/uploads/" + filename;
       req.files.push({
         fieldname:fieldname,
         file:file,
         filename:filename,
         encoding:encoding,
-        mimetype:mimetype
+        mimetype:mimetype,
+        filepath: filepath
       });
-      console.log(req.files);
-      file.resume();
+      var fstream = fs.createWriteStream(filepath);
+      file.pipe(fstream);
+      fstream.on("close", function(){
+        console.log("finished file", file);
+      })
     });
     req.busboy.on('finish', function(){
       console.log("uploaded");
@@ -59,10 +64,36 @@ app.use(function(req, res, next){
 app.post('/upload', function(req, res){
   console.log('hi');
   var files = req.files;
-  // for (var i = 0; i < files.length; i++){
-  //   var file = files[i];
-  //
-  // }
+  for (var i = 0; i < files.length; i++){
+    var file = files[i];
+    console.log(file.mimetype);
+    var converted = false;
+    if (file.mimetype == "application/pdf"){
+      var newfilepath = __dirname + "/uploads/" + file.filename.replace(/\.[^/.]+$/, "") + ".tiff";
+      var im = gm.subClass({imagemagick:true});
+      im(file.filepath)
+      .density(500,500)
+      .write(newfilepath, function(err){
+        if (err) console.log(err);
+        if (!err){
+          file.filename = file.filename.replace(/\.[^/.]+$/, "") + ".tiff"
+          file.filepath = newfilepath;
+          file.mimetype = "image/tiff";
+
+          converted = "pdf";
+          tesseract.process(file.filepath, function(err, text){
+            console.log(err);
+            console.log("text", text);
+          });
+        }
+      });
+    }else{
+      tesseract.process(file.filepath, function(err, text){
+        console.log(err);
+        console.log("text", text);
+      });
+    }
+  }
   res.send(JSON.stringify(req.files));
 })
 

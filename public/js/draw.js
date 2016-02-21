@@ -196,6 +196,6 @@ function passportBlacked(c){
 
 function draw(c) {
   check(c);
-  text(c, 600);
-  passport(c, 1200);
+  text(c, 0);
+  passport(c, 0);
 }
