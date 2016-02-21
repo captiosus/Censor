@@ -7,6 +7,9 @@ canvas.height = 450;
 var c = canvas.getContext("2d");
 c.beginPath();
 c.strokeStyle= "#000000";
-c.rect(150,5,340,440);
+c.rect(130,5,340,440);
 c.stroke();
+c.font="20px Arial"
+c.textAlign="center";
+c.fillText("Classified Company",250,40);
 c.closePath();
