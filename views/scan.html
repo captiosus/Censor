@@ -3,21 +3,18 @@
 {% block head %}<link rel="stylesheet" href="css/scan.css"/>{% endblock %}
 
 {% block content %}
-<div class="header middle_title">
-    <h1 class="classified">IT'S CLASSIFIED</h1>
-  </div>
+<div class="header">
+  <h1 class="classified">IT'S CLASSIFIED</h1>
+</div>
 <div class="container">
-  <div class="left">
-    <ol id="image-list"></ol>
-  </div>
-  <div class="right">
-    <form action="/upload" method="POST" id="imagedropzone" class="dropzone file-upload" enctype="multipart/form-data">
-    </form>
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-      <input type="file" name="image"/>
-      <input type="button" value="Upload"id="upload"/>
-    </form>
-  </div>
+  <ol id="image-list"></ol>
+  <h3 class="form-title">Drag file or click below</h3>
+  <form action="/upload" method="POST" id="imagedropzone" class="dropzone file-upload" enctype="multipart/form-data">
+  </form>
+  <form action="/upload" method="POST" enctype="multipart/form-data">
+    <input type="file" name="image"/>
+    <input type="button" value="Upload"id="upload"/>
+  </form>
 </div>
 <div id="response"/>
 <script src="js/dropzone.js"></script>
