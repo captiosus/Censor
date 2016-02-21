@@ -95,6 +95,22 @@ c.strokeStyle="#000000";
 c.moveTo(452,239.5);
 c.lineTo(40,239.5);
 c.stroke();
+c.closePath();
 }
 
-check();
+function passport(){
+c.beginPath();
+c.strokeStyle= "#000000";
+c.rect(50,49,500,352);
+c.stroke();
+c.closePath();
+
+c.font="bold 17px Georgia";
+c.strokeText("UNITED STATES OF AMERICA",250,75);
+
+c.font="12px Arial";
+c.fillText("P                   USA                    340007237",278,90);
+
+}
+
+passport();
