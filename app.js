@@ -1,17 +1,14 @@
 var express = require('express');
 var app = express();
 var morgan = require('morgan');
-var multer = require('multer');
+var busboy = require('connect-busboy');
 var path = require('path');
 var tesseract = require('node-tesseract');
 var fs = require('fs');
+var gm = require('gm');
 // var utils = require("./utils")
 
-var storage = multer.memoryStorage();
-var limits = { fileSize:2000000 };
-var upload = multer({storage:storage, limits:limits});
-
-app.use(morgan('combined'));
+app.use(morgan('dev'));
 
 swig = require('swig');
 app.engine('html', swig.renderFile);
@@ -23,6 +20,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view cache', false);
 swig.setDefaults({ cache: false });
 
+app.use(busboy());
+
 app.get('/', function (req, res) {
   res.render('index');
 });
@@ -32,19 +31,39 @@ app.get('/scan', function(req, res){
 });
 
 
-app.post('/upload', upload.single('image'), function(req, res){
-  var image = req.file;
-  var embed = "data:" + image.mimetype + ";base64,"  + image.buffer.toString('base64');
-  if (image.mimetype.split('/')[0] == "image"){
-    res.render('view', {image:embed});
-  }else if(image.mimetype.split('/')[0] == "application"){
-    res.render('view', {application:embed});
-  }
-});
-
 app.get('/view', function(req, res){
   res.render('view', {imageName:imageName});
 });
+
+app.use(function(req, res, next){
+  if(req.busboy){
+    req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype){
+      console.log(fieldname);
+      if(!req.files) req.files = [];
+      req.files.push({
+        fieldname:fieldname,
+        file:file,
+        filename:filename,
+        encoding:encoding,
+        mimetype:mimetype
+      });
+      console.log(filename);
+      console.log(req.files);
+      console.log("fileprocess");
+      file.resume();
+    });
+    req.busboy.on('finish', function(){
+      console.log("uploaded");
+      next();
+    });
+    req.pipe(req.busboy);
+  }
+});
+app.post('/upload', function(req, res){
+  console.log('hi');
+  console.log(req.files);
+  res.send(JSON.stringify(req.files));
+})
 
 
 app.listen(3000);
