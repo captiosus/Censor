@@ -185,10 +185,26 @@ c.fillText("New York, NY 10282",175 + shift,100);
 
 c.font="8px Arial";
 c.fillText("Dear Mr.Smith,",150 + shift,130);
+var lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur ipsum at orci malesuada ultricies ac vitae diam. Maecenas accumsan fermentum nulla. Donec ut erat at sem rhoncus finibus a eu ex. Curabitur tellus metus, gravida nec dui nec, blandit posuere ligula. Nullam sed purus nec tellus malesuada condimentum. Pellentesque vel scelerisque dolor. Integer pellentesque commodo nibh, quis commodo ex interdum in. Etiam at sapien at justo posuere mattis. Sed id mattis nulla. Donec elementum tempus est quis malesuada. Proin molestie diam eget magna fermentum porttitor a vitae libero. Nunc eu volutpat tellus. Nam consequat lacinia magna. Nullam sed mattis lacus, id ornare augue. Pellentesque eu blandit nisi. Vestibulum consectetur, odio sit amet bibendum semper, elit lorem maximus dui, eu finibus libero odio sed ex. Phasellus placerat ultricies nulla in scelerisque. Vestibulum in arcu tristique, aliquam mauris vitae, efficitur nisi. Sed efficitur convallis dui, eget iaculis libero egestas ac. Etiam metus mauris, sollicitudin ac nunc ut, tempor ultrices sapien. Cras laoreet libero interdum volutpat accumsan. Suspendisse facilisis lacinia risus ut pharetra. Nulla facilisi. Vivamus pretium lectus erat, sit amet vulputate leo tristique eu. Ut elit nunc, facilisis et sollicitudin vel, aliquam id risus. Vestibulum nec fermentum libero. Mauris eu erat nec nisl vehicula aliquet. Aliquam tempor, leo eu cursus venenatis, risus mauris tempor turpis, sed dapibus dolor turpis ac urna. Praesent tincidunt, sapien sit amet tempus sodales, elit nunc sodales tortor, eget egestas nulla sapien sit amet sapien. Cras vitae varius elit, ac suscipit eros. Aenean sed odio libero. Duis auctor turpis eu mauris faucibus volutpat. Vestibulum vel sagittis leo, nec molestie mauris. Pellentesque sodales, est ut posuere vestibulum, sapien felis euismod lacus, nec porta odio tellus in tellus. Mauris gravida arcu efficitur erat finibus suscipit. Aenean et bibendum magna. Vivamus sed lobortis dui, vitae vehicula orci. Sed at enim at velit mattis suscipit et ac libero. Morbi a lacus velit. Aliquam nec purus placerat, rhoncus nulla vitae, ultricies nunc. Donec ac nisi laoreet, auctor odio id, lacinia arcu. Proin porta eget mauris sit amet condimentum. Nullam hendrerit tellus neque, vitae malesuada quam vehicula non. Phasellus ut pellentesque neque, et hendrerit tortor. Donec posuere mauris eget feugiat aliquet. Nullam id tortor sagittis, viverra sapien sagittis, cursus magna. Nullam ac commodo nisi, nec finibus turpis. Duis placerat, augue vel consectetur accumsan, lacus massa pulvinar orci, ac mollis dolor elit nec ante. Donec suscipit placerat metus sed fringilla. Nam rhoncus sagittis malesuada. Cras purus eros, dapibus accumsan rhoncus et, ullamcorper sit amet eros. Integer gravida mauris a tempor cursus. Vivamus auctor bibendum metus, non pulvinar nulla posuere sed. Cras commodo, enim id iaculis hendrerit, quam erat molestie felis, a dapibus orci metus ut ante. In hendrerit arcu sit amet massa euismod sagittis. Nunc accumsan, enim quis mattis ornare, ipsum dolor aliquet ipsum, quis auctor odio enim sed mauris. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas sagittis nibh eget consectetur pharetra. Ut luctus velit in metus auctor posuere"
+var lorem_array = lorem.split(" ");
+var string;
+var count = 0;
+var char_count;
 for(var i=0;i<24;i++){
-    c.fillText("blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah",160 + shift,143+10*i);
+  string = "";
+  char_count = 0;
+  while(char_count + lorem_array[count].length+ 1< 77) {
+    string += lorem_array[count] + " ";
+    count++;
+    char_count += lorem_array[count].length + 1;
+  }
+  if (i === 0) {
+    c.fillText(string,170 + shift,143+10*i);
+  }
+  else {
+    c.fillText(string,160 + shift,143+10*i);
+  }
 }
-c.fillText("blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah.",160 + shift,383);
 c.fillText("Sincerely,",335 + shift,400);
 c.font="10px Arial"
 c.fillText("The Staff of Classified",335 + shift,413);
