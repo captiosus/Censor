@@ -8,23 +8,24 @@
 {% block content %}
 <div class="container">
   <div class="header middle_title">
-    <h1 class="classified">It's Classified</h1>
+    <h1 class="classified">IT'S CLASSIFIED</h1>
   </div>
   
   <div class="container">
-    <canvas id="index-drawings" class="c"></canvas>
+    <div class="button-container">
+      <a id="start-scan" href="scan" class="button">
+        <div id="scan-line"></div>
+        START SCANNING
+      </a>
+    </div>
+    <canvas id="index-drawings" width="300px" height="300px">
+    </canvas>
     <ul class="drawing-select">
       <li><div id="selector-0" class="selector-circle"></div></li>
       <li><div id="selector-1" class="selector-circle"></div></li>
       <li><div id="selector-2" class="selector-circle"></div></li>
     </ul>
-    <div class="button-container">
-      <a id="start-scan" href="scan" class="button">
-        <div id="scan-line"></div>
-        Start Scanning
-      </a>
-    </div>
   </div>
 </div>
-<script src="../js/draw.js"></script>
+<script src="js/index.js"></script>
 {% endblock %}
