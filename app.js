@@ -7,8 +7,9 @@ var tesseract = require('node-tesseract');
 var fs = require('fs');
 // var utils = require("./utils")
 
-var storage =multer.memoryStorage();
-var upload = multer({storage:storage});
+var storage = multer.memoryStorage();
+var limits = { fileSize:2000000 };
+var upload = multer({storage:storage, limits:limits});
 
 app.use(morgan('combined'));
 
@@ -34,12 +35,15 @@ app.get('/scan', function(req, res){
 app.post('/upload', upload.single('image'), function(req, res){
   var image = req.file;
   var embed = "data:" + image.mimetype + ";base64,"  + image.buffer.toString('base64');
-  res.render('view', {image:embed});
+  if (image.mimetype.split('/')[0] == "image"){
+    res.render('view', {image:embed});
+  }else if(image.mimetype.split('/')[0] == "application"){
+    res.render('view', {application:embed});
+  }
 });
 
 app.get('/view', function(req, res){
   res.render('view', {imageName:imageName});
-  res.end();
 });
 
 
