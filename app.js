@@ -2,8 +2,10 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var tesseract = require('node-tesseract');
-swig = require('swig');
+var fs = require('fs');
+var utils = require("./utils")
 
+swig = require('swig');
 app.engine('html', swig.renderFile);
 
 app.set('view engine', 'html');
@@ -21,5 +23,30 @@ app.get('/scan', function(req, res){
   res.render('scan');
 });
 
+app.post('/upload', function(req, res){
+  fs.readFile(req.files.image.path, function(err, data){
+    var imageName = req.files.image.name;
+    if (!imageName){
+      console.log("There was an error uploading this file");
+      res.redirect('/scan');
+      res.end();
+    }else{
+      var newPath = __dirname + "/uploads/uncensored/" + imageName;
+      fs.writeFile(newPath, data, function(err){
+        res.redirect("/view/" + imageName);
+      });
+    }
+  });
+});
+
+
+app.get('/view/:imageName/:accessKey', function(req, res){
+  var imageName = __dirname + "/uploads/uncensored/" + req.params.imageName,
+      accessKey = req.params.accessKey;
+  res.render('view', {imageName:imageName});
+  res.end();
+});
+
 
 app.listen(3000);
+console.log("Server started on port 3000");
