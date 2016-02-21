@@ -41,9 +41,10 @@ app.post('/upload', function(req, res){
 
 
 app.get('/view/:imageName/:accessKey', function(req, res){
-  var imageName = req.params.imageName,
+  var imageName = __dirname + "/uploads/uncensored/" + req.params.imageName,
       accessKey = req.params.accessKey;
-      res.render('view', {imageName:})
+  res.render('view', {imageName:imageName});
+  res.end();
 });
 
 
