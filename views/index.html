@@ -12,12 +12,6 @@
   </div>
   
   <div class="container">
-    <div class="button-container">
-      <a id="start-scan" href="scan" class="button">
-        <div id="scan-line"></div>
-        START SCANNING
-      </a>
-    </div>
     <canvas id="index-drawings" width="300px" height="300px">
     </canvas>
     <ul class="drawing-select">
@@ -25,7 +19,13 @@
       <li><div id="selector-1" class="selector-circle"></div></li>
       <li><div id="selector-2" class="selector-circle"></div></li>
     </ul>
+    <div class="button-container">
+      <a id="start-scan" href="scan" class="button">
+        <div id="scan-line"></div>
+        START SCANNING
+      </a>
+    </div>
   </div>
 </div>
-<script src="js/index.js"></script>
+<script src="js/draw.js"></script>
 {% endblock %}
