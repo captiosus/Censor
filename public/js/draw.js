@@ -7,6 +7,6 @@ canvas.height = 450;
 var c = canvas.getContext("2d");
 c.beginPath();
 c.strokeStyle= "#000000";
-c.rect(172,60,225,330);
+c.rect(150,5,340,440);
 c.stroke();
 c.closePath();

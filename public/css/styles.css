@@ -12,7 +12,7 @@
 .c{
     display: flex;
     justify-content: center;
-    style: 1px solid #000000;
+//    style: 1px solid #000000;
 }
 
 .button-container {
