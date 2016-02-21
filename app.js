@@ -20,6 +20,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view cache', false);
 swig.setDefaults({ cache: false });
 
+app.use(busboy());
+
 app.get('/', function (req, res) {
   res.render('index');
 });
@@ -29,45 +31,39 @@ app.get('/scan', function(req, res){
 });
 
 
-app.post('/upload', upload.single('image'), function(req, res){
-  var image = req.file;
-  console.log(image);
-  if (image.mimetype == "application/pdf"){
-    gm(image.buffer, image.originalname)
-    .toBuffer('TIFF', function(err, buffer){
-      if(err) console.log(err);
-      image.mimetype="application/pdf";
-      image.buffer = buffer;
-      var embed = "data:" + image.mimetype + ";base64," + image.buffer;
-      console.log(image);
-      res.render('view', {application:embed});
-    });
-  }
-
-
-
-
-  // if (image.mimetype.split('/')[0] == "image"){
-  //   res.render('view', {image:embed});
-  // }else if(image.mimetype.split('/')[0] == "application"){
-  //   var tiffbuffer = req.file.buffer;
-  //   res.render('view', {application:embed});
-  //   gm(req.file.buffer)
-  //   .toBuffer('TIFF', function(err, buffer){
-  //     if(err) {
-  //       console.log(err);
-  //       return err;
-  //     }
-  //     tiffbuffer = buffer;
-  //     image.mimetype = "application/tiff";
-  //     console.log(tiffbuffer);
-  //   });
-  // }
-});
-
 app.get('/view', function(req, res){
   res.render('view', {imageName:imageName});
 });
+
+app.use(function(req, res, next){
+  if(req.busboy){
+    req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype){
+      console.log(fieldname);
+      if(!req.files) req.files = [];
+      req.files.push({
+        fieldname:fieldname,
+        file:file,
+        filename:filename,
+        encoding:encoding,
+        mimetype:mimetype
+      });
+      console.log(filename);
+      console.log(req.files);
+      console.log("fileprocess");
+      file.resume();
+    });
+    req.busboy.on('finish', function(){
+      console.log("uploaded");
+      next();
+    });
+    req.pipe(req.busboy);
+  }
+});
+app.post('/upload', function(req, res){
+  console.log('hi');
+  console.log(req.files);
+  res.send(JSON.stringify(req.files));
+})
 
 
 app.listen(3000);

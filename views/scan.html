@@ -13,9 +13,13 @@
   <div class="right">
     <form action="/upload" method="POST" class="dropzone file-upload" enctype="multipart/form-data">
     </form>
-    <button id="upload" type="submit">Submit</button>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+      <input type="file" name="image"/>
+      <input type="button" value="Upload"id="upload"/>
+    </form>
   </div>
 </div>
+<div id="response"/>
 <script src="js/dropzone.js"></script>
 <script src="js/scan.js"></script>
 {% endblock %}
