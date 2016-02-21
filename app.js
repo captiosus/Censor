@@ -1,9 +1,14 @@
 var express = require('express');
 var app = express();
+var morgan = require('morgan');
+var multer = require('multer');
+var upload = multer({dest:'temp/'});
 var path = require('path');
 var tesseract = require('node-tesseract');
 var fs = require('fs');
-var utils = require("./utils")
+// var utils = require("./utils")
+
+app.use(morgan('combined'));
 
 swig = require('swig');
 app.engine('html', swig.renderFile);
@@ -23,26 +28,11 @@ app.get('/scan', function(req, res){
   res.render('scan');
 });
 
-app.post('/upload', function(req, res){
-  fs.readFile(req.files.image.path, function(err, data){
-    var imageName = req.files.image.name;
-    if (!imageName){
-      console.log("There was an error uploading this file");
-      res.redirect('/scan');
-      res.end();
-    }else{
-      var newPath = __dirname + "/uploads/uncensored/" + imageName;
-      fs.writeFile(newPath, data, function(err){
-        res.redirect("/view/" + imageName);
-      });
-    }
-  });
+app.post('/upload', upload.single('image'), function(req, res){
 });
 
-
-app.get('/view/:imageName/:accessKey', function(req, res){
-  var imageName = __dirname + "/uploads/uncensored/" + req.params.imageName,
-      accessKey = req.params.accessKey;
+console.log(__dirname);
+app.get('/view', function(req, res){
   res.render('view', {imageName:imageName});
   res.end();
 });
