@@ -18,12 +18,12 @@
 .container {
   text-align: center;
 }
-/*#image-list {*/
-/*  float: left;*/
-/*  width: 152px;*/
-/*  min-height: 300px;*/
-/*  border-right: 8px solid red;*/
-/*}*/
+#image-list {
+  float: left;
+  width: 152px;
+  min-height: 300px;
+  border-right: 8px solid red;
+}
 
 .image-list{
     margin-top:0px;
