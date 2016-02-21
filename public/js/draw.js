@@ -95,8 +95,6 @@ c.strokeStyle="#000000";
 c.moveTo(452,239.5);
 c.lineTo(40,239.5);
 c.stroke();
-
-
 }
 
 check();
