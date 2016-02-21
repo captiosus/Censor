@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}Scan{% endblock %}
+
+{% block content %}
+<form action="/upload" method="POST">
+<input type="file" id="image"></input>
+<input type="submit"></input>
+</form>
+
+{% endblock %}
