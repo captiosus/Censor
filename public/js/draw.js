@@ -1,40 +1,34 @@
-var canvas = document.getElementById("index-drawings");
-// letter documents are 220 x 170
-canvas.width = 600;
-canvas.height = 450;
-var c = canvas.getContext("2d");
-
 //draws text document
-function text(){
+function text(c, shift){
 c.beginPath();
 c.strokeStyle = "#000000";
-c.rect(130,5,340,440);
+c.rect(125 + shift,5,350,440);
 c.stroke();
 
 c.font="15px Arial";
 c.textAlign="center";
-c.fillText("Classified Corp.",300,40);
+c.fillText("Classified Corp.",300 + shift,40);
 
 c.font="10px Arial";
 c.textAlign="start";
-c.fillText("John Smith",175,80);
-c.fillText("123 Bacon Avenue",175,90);
-c.fillText("New York, NY 10282",175,100);
+c.fillText("John Smith",175 + shift,80);
+c.fillText("123 Bacon Avenue",175 + shift,90);
+c.fillText("New York, NY 10282",175 + shift,100);
 
 c.font="8px Arial";
-c.fillText("Dear Mr.Smith,",155,130);
+c.fillText("Dear Mr.Smith,",150 + shift,130);
 for(var i=0;i<24;i++){
-    c.fillText("blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah",165,143+10*i);
+    c.fillText("blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah",160 + shift,143+10*i);
 }
-c.fillText("blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah.",165,383);
-c.fillText("Sincerely,",335,400);
+c.fillText("blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah.",160 + shift,383);
+c.fillText("Sincerely,",335 + shift,400);
 c.font="10px Arial"
-c.fillText("The Staff of Classified",335,413);
+c.fillText("The Staff of Classified",335 + shift,413);
 c.closePath();
 }
 
 //draws a check
-function check(){
+function check(c){
 c.beginPath();
 c.strokeStyle= "#000000";
 c.rect(0,88,600,275);
@@ -98,72 +92,75 @@ c.stroke();
 c.closePath();
 }
 
-function passport(){
+function passport(c, shift){
 c.beginPath();
 c.strokeStyle= "#000000";
-c.rect(50,49,500,352);
+c.rect(50 + shift,49,500,352);
 c.stroke();
 c.closePath();
 
 c.font="bold 17px Georgia";
 c.strokeStyle="#000099";
-c.strokeText("UNITED STATES OF AMERICA",250,75);
+c.strokeText("UNITED STATES OF AMERICA",250 + shift,75);
 c.font="bold 11px Arial";
 c.fillStyle="#000099";
 c.textAlign="center";
-c.fillText("PASSPORT",165,73);
-c.fillText("PASSEPORT",165,85);
-c.fillText("PASAPORTE",165,97);
+c.fillText("PASSPORT",165 + shift,73);
+c.fillText("PASSEPORT",165 + shift,85);
+c.fillText("PASAPORTE",165 + shift,97);
 c.fillStyle="black";
 c.textAlign="start";
 
 c.strokeStyle="black";
 c.font="8px Arial";
-c.fillText("Type                            Code                                     Passport No.",250,88);
-c.fillText("Surname",250,118);
-c.fillText("Given Names",250,143);
-c.fillText("Nationality",250,168);
-c.fillText("Date of birth",250,193);
-c.fillText("Place of birth",250,218);
-c.fillText("Date of issue",250,243);
-c.fillText("Date of expiration",250,268);
-c.fillText("Endorsements",250,293);
+c.fillText("Type                            Code                                     Passport No.",250 + shift,88);
+c.fillText("Surname",250 + shift,118);
+c.fillText("Given Names",250 + shift,143);
+c.fillText("Nationality",250 + shift,168);
+c.fillText("Date of birth",250 + shift,193);
+c.fillText("Place of birth",250 + shift,218);
+c.fillText("Date of issue",250 + shift,243);
+c.fillText("Date of expiration",250 + shift,268);
+c.fillText("Endorsements",250 + shift,293);
 
 c.font="bold 12px Arial";
-c.fillText("P                   USA                    340007237",278,100);
-c.fillText("SMITH",252,130);
-c.fillText("JOHN",252,155);
-c.fillText("UNITED STATES OF AMERICA",252,180);
-c.fillText("20 FEB 1964",252,205);
-c.fillText("New York, U.S.A",252,230);
-c.fillText("21 FEB 2016",252,255);
-c.fillText("20 FEB 2026",252,280);
-c.fillText("SEE PAGE 27",265,305);
+c.fillText("P                   USA                    340007237",278 + shift,100);
+c.fillText("SMITH",252 + shift,130);
+c.fillText("JOHN",252 + shift,155);
+c.fillText("UNITED STATES OF AMERICA",252 + shift,180);
+c.fillText("20 FEB 1964",252 + shift,205);
+c.fillText("New York, U.S.A",252 + shift,230);
+c.fillText("21 FEB 2016",252 + shift,255);
+c.fillText("20 FEB 2026",252 + shift,280);
+c.fillText("SEE PAGE 27",265 + shift,305);
 
 c.textAlign="center";
-c.fillText("United States",485,255);
-c.fillText("Department of State",485,265);
-c.fillText("F",485,230);
+c.fillText("United States",485 + shift,255);
+c.fillText("Department of State",485 + shift,265);
+c.fillText("F",485 + shift,230);
 c.font="8px Arial";
-c.fillText("Authority",485,243);
-c.fillText("Sex",485,218);
+c.fillText("Authority",485 + shift,243);
+c.fillText("Sex",485 + shift,218);
 
-c.rect(105,125,125,165);
+c.rect(105 + shift,125,125,165);
 c.stroke
 
 c.font="bold 30px Georgia";
 c.textAlign="start";
-c.strokeText("USA",460,313);
+c.strokeText("USA",460 + shift,313);
 
-c.moveTo(50,320);
-c.lineTo(550,320);
+c.moveTo(50 + shift,320);
+c.lineTo(550 + shift,320);
 c.stroke();
 
 c.textAlign="center";
 c.font="bold 12px Arial";
-c.fillText("P<USASMITH<<JOHN<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",300,350);
-c.fillText("3400072374USA6402201M260220235478511890988765<<87392010234",300,365);
-
+c.fillText("P<USASMITH<<JOHN<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",300 + shift,350);
+c.fillText("3400072374USA6402201M260220235478511890988765<<87392010234",300 + shift,365);
 }
 
-passport();
+function draw(c) {
+  check(c);
+  text(c, 600);
+  passport(c, 1200);
+}
