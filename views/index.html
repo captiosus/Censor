@@ -2,24 +2,29 @@
 
 {% block title %}Home{% endblock %}
 {% block head %} 
-<link rel="stylesheet" href="css/styles.css"/>
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 {% endblock %}
 
 {% block content %}
 <div class="container">
-  <div class="header">
-    <h1>It's Classified</h1>
+  <div class="header middle_title">
+    <h1 class="classified">It's Classified</h1>
   </div>
+  
   <div class="container">
+    <canvas id="index-drawings" class="c"></canvas>
     <div class="button-container">
-      <a id="start-scan" href="/scan" class="button">
+      <a id="start-scan" href="scan" class="button">
         <div id="scan-line"></div>
         Start Scanning
       </a>
     </div>
-    <canvas id="index-drawings"></canvas>
+    <ul class="drawing-select">
+      <li><div id="selector-0" class="selector-circle"></div></li>
+      <li><div id="selector-1" class="selector-circle"></div></li>
+      <li><div id="selector-2" class="selector-circle"></div></li>
+    </ul>
   </div>
 </div>
-<script src="js/index.js"></script>
+<script src="../js/draw.js"></script>
 {% endblock %}
