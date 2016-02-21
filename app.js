@@ -38,7 +38,6 @@ app.get('/view', function(req, res){
 app.use(function(req, res, next){
   if(req.busboy){
     req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype){
-      console.log(fieldname);
       if(!req.files) req.files = [];
       req.files.push({
         fieldname:fieldname,
@@ -47,9 +46,7 @@ app.use(function(req, res, next){
         encoding:encoding,
         mimetype:mimetype
       });
-      console.log(filename);
       console.log(req.files);
-      console.log("fileprocess");
       file.resume();
     });
     req.busboy.on('finish', function(){
@@ -62,6 +59,7 @@ app.use(function(req, res, next){
 app.post('/upload', function(req, res){
   console.log('hi');
   console.log(req.files);
+  var file = req.files[0];
   res.send(JSON.stringify(req.files));
 })
 
