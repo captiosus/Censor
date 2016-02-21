@@ -60,6 +60,7 @@ app.post('/upload', function(req, res){
   console.log('hi');
   console.log(req.files);
   var file = req.files[0];
+  console.log(file.file);
   res.send(JSON.stringify(req.files));
 })
 
