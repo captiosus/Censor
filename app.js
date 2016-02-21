@@ -2,11 +2,13 @@ var express = require('express');
 var app = express();
 var morgan = require('morgan');
 var multer = require('multer');
-var upload = multer({dest:'temp/'});
 var path = require('path');
 var tesseract = require('node-tesseract');
 var fs = require('fs');
 // var utils = require("./utils")
+
+var storage =multer.memoryStorage();
+var upload = multer({storage:storage});
 
 app.use(morgan('combined'));
 
@@ -29,9 +31,12 @@ app.get('/scan', function(req, res){
 });
 
 app.post('/upload', upload.single('image'), function(req, res){
+  console.log('hi');
+  console.log(req.file);
+  res.write('hello');
+  res.end();
 });
 
-console.log(__dirname);
 app.get('/view', function(req, res){
   res.render('view', {imageName:imageName});
   res.end();
