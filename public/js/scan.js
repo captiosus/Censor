@@ -29,7 +29,6 @@ Dropzone.options.imagedropzone = {
       drawBoxes(file, res);
       loading.style.display = "none";
       savebar.style.display = "block"
-      main.innerHTML = "<img src=\"" + thumbnail.getAttribute('src') + "\"/>"
     })
   },
   accept:function(file, done){
@@ -44,7 +43,9 @@ var drawBoxes = function(image, boxfile){
   var ctx = c.getContext("2d");
   var img = new Image();
   img.src = thumbnail.getAttribute('src')
-  ctx.drawImage(img, 0, 0);
+  var aspect_ratio = image.height / image.width;
+  var height = 600 * aspect_ratio;
+  ctx.drawImage(img, 0, 0, 600, height);
   boxfile = boxfile.split('\n');
   var boxes = []
   for (var line in boxfile){
