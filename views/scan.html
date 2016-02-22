@@ -17,10 +17,16 @@
   </ol>
 </div>
 <div class="container">
+        <div class="save-bar">
+            <button id="save" type="button" class="save-button"></button>
+            <button id="save-all" type="button" class="saveall-button"></button>
+          <button id="delete" type="button" class="delete-button"></button>
+        </div>
   <h3 class="form-title">Drag file or click below</h3>
   <form action="/upload" method="POST" id="imagedropzone" class="dropzone file-upload" enctype="multipart/form-data">
   </form>
   <button id="upload" type="button" class="button">SUBMIT</button>
+</div>
   <div id="response"></div>
 </div>
 <script src="js/dropzone.js"></script>
