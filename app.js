@@ -65,7 +65,8 @@ app.post('/upload', function(req, res){
   var files = req.files;
   for (var i = 0; i < files.length; i++){
     var tessoptions = {
-      "config":"makebox"
+      "config":"makebox",
+      "psm":5
     };
     var file = files[i];
     console.log(file);
