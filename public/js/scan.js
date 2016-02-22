@@ -13,26 +13,36 @@ Dropzone.options.imagedropzone = {
       var thumbnails = document.getElementById('image-list').getElementsByTagName('img');
       for(var i = 0; i < thumbnails.length; i++){
         thumbnail = thumbnails[i];
+        if(thumbnail.getAttribute("width")>=thumbnail.getAttribute("height")){
+            thumbnail.style.width="160px";
+            thumbnail.style.height="auto";
+        }else{
+            thumbnail.style.height="160px";
+            thumbnail.style.width="auto";
+        }
         if (thumbnail.getAttribute('alt') == file.name){
+          console.log("match!");
           thumbnail.parentNode.onclick =  function(){
-            thisdropzone.processFile(file);
+            console.log("processingfile", file.filename);
             main.style.display = "none";
             loading.style.display = "block";
+            thisdropzone.processFile(file);
           };
         }
       }
-    })
+    });
     this.on('success', function(file, res, err){
-      console.log(res);
       drawBoxes(file, res);
       loading.style.display = "none";
+      savebar.style.display = "block";
+      main.innerHTML = "<img src=\"" + thumbnail.getAttribute('src') + "\"/>";
+    });
       savebar.style.display = "block"
     })
   },
   accept:function(file, done){
-    console.log("new file!", file);
     done();
-  },
+  }
 }
 
 var drawBoxes = function(image, boxfile){
