@@ -74,10 +74,12 @@ done.addEventListener("click", function(e) {
 
 var height;
 var width;
+var margin_x;
 var boxes = [];
+var img;
 var drawBoxes = function(image, boxfile){
   c.style.display = 'block';
-  var img = new Image();
+  img = new Image();
   img.src = thumb_src;
   var aspect_ratio = image.height / image.width;
   var inv_aspect_ratio = image.width / image.height;
@@ -101,7 +103,7 @@ var drawBoxes = function(image, boxfile){
     height = image.height;
     width = image.width;
   }
-  var margin_x = (600 - width) / 2;
+  margin_x = (600 - width) / 2;
   var hratio = height / image.height;
   var wratio = width / image.width;
   ctx.drawImage(img, margin_x, 0, width, height);
@@ -122,6 +124,7 @@ var drawBoxes = function(image, boxfile){
   c.addEventListener('mouseover', blotpointer);
 };
 
+var blotted = []
 var blotsquare = function(e){
   var x = e.offsetX, y = e.offsetY;
   for (var charindex in boxes){
@@ -129,7 +132,20 @@ var blotsquare = function(e){
     var x1=box[1], x2=box[3], y1 = height - box[2], y2=(height - box[2]) + (-1 * Math.abs(box[4] - box[2]));
     if (x1 <= x && x <= x2 && y1 >= y && y >= y2){
       ctx.fillRect(box[1], height - box[2], Math.abs(box[3] - box[1]), -1 * Math.abs(box[4] - box[2]));
+      var blot = [box[1], height - box[2], Math.abs(box[3] - box[1]), -1 * Math.abs(box[4] - box[2])];
+      blotted.push(blot);
     }
+  }
+}
+
+done.addEventListener('click', clear);
+var clear = function(){
+  console.log("clear");
+  ctx.clearRect(0,0,c.width,c.height);
+  ctx.drawImage(img, margin_x, 0, width, height);
+  for (var blotkey in blotted){
+    var blot = blotted[blotkey];
+    ctx.fillRect(blot[0],blot[1],blot[2],blot[3]);
   }
 }
 
