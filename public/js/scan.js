@@ -11,21 +11,13 @@ Dropzone.options.imagedropzone = {
       myDropzone.processQueue();
     });
 
-    this.on("addedfile", function() {
-    });
-    this.on('completemultiple', function(files){
-      console.log("uploaded!");
-    });
-    this.on('addedfile', function(file, err){
-      console.log("added", file);
-      console.log("err", err);
-    });
     this.on('queuecomplete', function(){
-      console.log("done!");
+      console.log("Queue completed");
     });
-    this.on('success', function(err, res){
-      console.log("err", err);
-      console.log("res", res);
+    this.on('success', function(file, res, err){
+      console.log('res', res);
+      console.log("received response");
+      document.getElementById("response").html = res;
     })
   },
   accept:function(file, done){
