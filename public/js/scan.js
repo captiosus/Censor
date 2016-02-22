@@ -17,7 +17,7 @@ Dropzone.options.imagedropzone = {
     this.on('success', function(file, res, err){
       console.log('res', res);
       console.log("received response");
-      
+
       document.getElementById("response").html = res;
     })
   },

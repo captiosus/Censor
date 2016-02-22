@@ -87,7 +87,7 @@ app.post('/upload', function(req, res){
         }
       });
     }else{
-      tesseract.process(file.filepath, function(file, text){
+      tesseract.process(file.filepath, tessoptions, function(file, text){
         res.send(text);
       });
     }
