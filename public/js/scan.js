@@ -164,11 +164,12 @@ var blotpointer = function(e){
 }
 
 save.addEventListener('click', function(){
-  var dataurl = c.toDataURL('image/jpeg', 1.0);
-  dataurl = dataurl.replace('image/jpeg;base64', "application/octet-stream;base64");
-  var a = document.createElement('a');
-  a.setAttribute('download', 'censored-'+ currfilename.replace(/\.[^/.]+$/, "") + ".jpg");
-  a.setAttribute('href', dataurl);
-  document.getElementsByTagName('body')[0].appendChild(a);
-  a.click();
+  if (done_bool) {
+    var dataurl = c.toDataURL('image/jpeg', 1.0);
+    dataurl = dataurl.replace('image/jpeg', "application/octet-stream");
+    var a = document.createElement('a');
+    a.setAttribute('download', 'censored-'+ currfilename.replace(/\.[^/.]+$/, "") + ".jpg");
+    a.setAttribute('href', dataurl);
+    a.click();
+  }
 })
