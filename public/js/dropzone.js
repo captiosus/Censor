@@ -392,7 +392,7 @@
       maxfilesreached: noop,
       queuecomplete: noop,
       addedfiles: noop,
-      previewTemplate: "<li><div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-image\"><img data-dz-thumbnail /></div></li>\n"
+      previewTemplate: "<li><div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-image\"><img data-dz-thumbnail /></div> <div class=\"dz-filename\"><span data-dz-name></span></div></li>\n"
     };
 
     extend = function() {
