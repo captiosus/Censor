@@ -7,7 +7,7 @@ Dropzone.options.imagedropzone = {
     var submitButton = document.querySelector("#upload")
     var thisdropzone = this;
     submitButton.addEventListener("click", function() {
-      this.processQueue();
+      thisdropzone.processQueue();
     });
 
     this.on('thumbnail', function(file, dataUrl){
@@ -27,8 +27,9 @@ Dropzone.options.imagedropzone = {
       console.log("Queue completed");
     });
     this.on('success', function(file, res, err){
+
       console.log(res);
-      drawBoxes(res);
+      drawBoxes(file, res);
     })
   },
   accept:function(file, done){
@@ -37,19 +38,25 @@ Dropzone.options.imagedropzone = {
   },
 }
 
-var drawBoxes = function(boxfile){
+var drawBoxes = function(image, boxfile){
   var c = document.getElementById('censorme');
+  console.log(c);
   c.style.visibility = 'visible';
-  var ctx = c.getContext('2D');
+  c.style.zIndex = 2;
+  var ctx = c.getContext("2d");
   boxfile = boxfile.split('\n');
+  console.log(boxfile);
   var boxes = []
   for (var line in boxfile){
-    line = line.strip().split(\' ');//Char = index 0; xtopleft = index 1; ytopleft = index 2; xbottomright = index 3; ybottomright = index 4
+    line = boxfile[line].split(' ');//Char = index 0; xtopleft = index 1; ytopleft = index 2; xbottomright = index 3; ybottomright = index 4
     var box = [line[0]];
+    console.log(line);
     for (var i = 1; i < line.length - 1; i++){
-      box.push( parseInt(line[i]) * 7 / 10 );
+      box.push( parseInt(line[i]) * 2 / 10 );
     }
-    ctx.rect(box[1], box[2], box[3] - box[1], box[4] - box[2]);
+    console.log(box);
+    ctx.beginPath();
+    ctx.rect(box[1], c.height - box[2], Math.abs(box[3] - box[1]), -1 * Math.abs(box[4] - box[2]));
     ctx.stroke();
     boxes.push(box);
   }
