@@ -70,6 +70,13 @@ upload_more.addEventListener("click", function(e) {
 done.addEventListener("click", function(e) {
   done_bool = true;
   save.classList.remove("not-done");
+  console.log("clear");
+  ctx.clearRect(0,0,c.width,c.height);
+  ctx.drawImage(img, margin_x, 0, width, height);
+  for (var blotkey in blotted){
+    var blot = blotted[blotkey];
+    ctx.fillRect(blot[0],blot[1],blot[2],blot[3]);
+  }
 });
 
 var height;
@@ -135,17 +142,6 @@ var blotsquare = function(e){
       var blot = [box[1], height - box[2], Math.abs(box[3] - box[1]), -1 * Math.abs(box[4] - box[2])];
       blotted.push(blot);
     }
-  }
-}
-
-done.addEventListener('click', clear);
-var clear = function(){
-  console.log("clear");
-  ctx.clearRect(0,0,c.width,c.height);
-  ctx.drawImage(img, margin_x, 0, width, height);
-  for (var blotkey in blotted){
-    var blot = blotted[blotkey];
-    ctx.fillRect(blot[0],blot[1],blot[2],blot[3]);
   }
 }
 
