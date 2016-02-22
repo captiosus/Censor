@@ -14,14 +14,21 @@ It's Classified is a website dedicated to protecting sensitive information on co
 * Swig
 * Tesseract
 * Dropzone.js
+* Graphics Magick/ Image Magick
+* Express
 
 ## Setup
 Before running make sure to run these commands to download necessary libraries
 ```
 npm install
 sudo apt-get install tesseract-ocr
-sudo apt-get install graphicmagick
+sudo apt-get install graphicsmagick
 ```
+Navigate into node_modules/node-tesseract/lib/tesseract.js and change line 85 to the following
+```
+glob(output + '.+(html|hocr|txt|box)', function(err, files){
+```
+
 Use the following command to run server
 ```
 nodejs app.js
@@ -33,7 +40,3 @@ nodejs app.js
 | Felicity Ng | Front-end  |
 | Roy Xu      | Middleware |
 | Leon Chou   | Backend    |
-
-#### Important Fix!
-When downloading and installing this application, go into node_modules/node-tesseract/lib/tesseract.js
-On line 85, where it says html|hocr|txt, add |box directly after. This allows our program to retrieve coordinates of words and without this it will crash!
