@@ -11,6 +11,7 @@
   </ol>
 </div>
 <div class="container">
+<<<<<<< HEAD
   <div class="save-bar">
     <button id="save" type="button" class="taskbar">Save</button>
     <button id="save-all" type="button" class="taskbar">Save All</button>
@@ -22,6 +23,21 @@
   <button id="upload" type="button" class="button">SUBMIT</button>
 </div>
 <canvas id="censorme" visibility="hidden"></canvas>
+=======
+  <div id="savebar" class="save-bar">
+    <button id="scroll-left" type="button" class="scroll"><</button>
+    <button id="save" type="button" class="taskbar">SAVE</button>
+    <button id="delete" type="button" class="taskbar">DELETE</button>
+    <button id="scroll-left" type="button" class="scroll">></button>
+  </div>
+  <div id="main">
+    <h3 class="form-title">DRAG FILE OR CLICK BELOW</h3>
+    <form action="/upload" method="POST" id="imagedropzone" class="dropzone file-upload" enctype="multipart/form-data">
+    </form>
+  </div>
+  <div id="loading"></div>
+</div>
+>>>>>>> 851926c3007370214a8bb3894861dae33dd1a496
 <script src="js/dropzone.js"></script>
 <script src="js/scan.js"></script>
 {% endblock %}

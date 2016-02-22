@@ -165,7 +165,6 @@ function censor_boxes() {
       selected_curr = i;
     }
   }
-  console.log(selected_curr);
   if (selected_curr === 2) {
     setTimeout(function() {
       passportBlacked(ctx, 1200);
