@@ -61,16 +61,14 @@ app.use(function(req, res, next){
     req.pipe(req.busboy);
   }
 });
+
 app.post('/upload', function(req, res){
-  console.log('hi');
   var files = req.files;
   for (var i = 0; i < files.length; i++){
     var tessoptions = {
       config:"hocr"
     }
     var file = files[i];
-    console.log(file.mimetype);
-    var converted = false;
     if (file.mimetype == "application/pdf"){
       var newfilepath = __dirname + "/uploads/" + file.filename.replace(/\.[^/.]+$/, "") + ".tiff";
       var im = gm.subClass({imagemagick:true});
@@ -83,21 +81,17 @@ app.post('/upload', function(req, res){
           file.filepath = newfilepath;
           file.mimetype = "image/tiff";
 
-          converted = "pdf";
           tesseract.process(file.filepath, tessoptions, function(err, text){
-            console.log(err);
-            console.log("text", text);
+            res.send(text);
           });
         }
       });
     }else{
-      tesseract.process(file.filepath, function(err, text){
-        console.log("err", err);
-        console.log("text", text);
+      tesseract.process(file.filepath, tessoptions, function(file, text){
+        res.send(text);
       });
     }
   }
-  res.send(JSON.stringify(req.files));
 })
 
 
