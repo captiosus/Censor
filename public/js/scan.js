@@ -23,20 +23,22 @@ Dropzone.options.imagedropzone = {
             thumbnail.style.width="auto";
         }
         if (thumbnail.getAttribute('alt') == file.name){
-          thumbnail.onclick =  function(){
-            thisdropzone.processFile(file);
+          console.log("match!");
+          thumbnail.parentNode.onclick =  function(){
+            console.log("processingfile", file.filename);
             main.style.display = "none";
             loading.style.display = "block";
+            thisdropzone.processFile(file);
           };
         }
       }
     });
     this.on('success', function(file, res, err){
-      console.log(res);
       drawBoxes(file, res);
       loading.style.display = "none";
-      savebar.style.display = "block"
-    })
+      savebar.style.display = "block";
+      main.innerHTML = "<img src=\"" + thumbnail.getAttribute('src') + "\"/>";
+    });
     this.on('addedfile', function(file) {
       if (!file.type.match(/image.*/)) {
         myDropzone.emit("thumbnail", file, "http://path/to/image");
@@ -45,9 +47,8 @@ Dropzone.options.imagedropzone = {
     });
   },
   accept:function(file, done){
-    console.log("new file!", file);
     done();
-  },
+  }
 }
 
 var drawBoxes = function(image, boxfile){
@@ -58,6 +59,7 @@ var drawBoxes = function(image, boxfile){
   img.src = thumbnail.getAttribute('src')
   var aspect_ratio = image.height / image.width;
   var height = 600 * aspect_ratio;
+  var ratio = height / image.height;
   ctx.drawImage(img, 0, 0, 600, height);
   boxfile = boxfile.split('\n');
   var boxes = []
@@ -66,11 +68,11 @@ var drawBoxes = function(image, boxfile){
     var box = [line[0]];
     console.log(line);
     for (var i = 1; i < line.length - 1; i++){
-      box.push( parseInt(line[i]) * 2 / 10 );
+      box.push( parseInt(line[i]) * ratio );
     }
     console.log(box);
     ctx.beginPath();
-    ctx.rect(box[1], c.height - box[2], Math.abs(box[3] - box[1]), -1 * Math.abs(box[4] - box[2]));
+    ctx.rect(box[1], height - box[2], Math.abs(box[3] - box[1]), -1 * Math.abs(box[4] - box[2]));
     ctx.stroke();
     boxes.push(box);
   }
