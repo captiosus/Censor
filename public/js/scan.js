@@ -156,21 +156,6 @@ var clear = function(){
   }
 }
 
-
-function blothover(e) {
-  var rect = c.getBoundingClientRect();
-  var x = (e.clientX - rect.left) / (rect.right - rect.left) * c.width;
-  var y = (e.clientY - rect.top) / (rect.bottom - rect.top) * c.height;
-  for (var charindex in boxes){
-    var box = boxes[charindex];
-    var x1=box[1], x2=box[3], y1 = height - box[2], y2=(height - box[2]) + (-1 * Math.abs(box[4] - box[2]));
-    if (x1 <= x && x <= x2 && y1 >= y && y >= y2){
-      console.log('hello');
-      document.body.style.cursor = "pointer";
-    }
-  }
-}
-
 save.addEventListener('click', function(){
   if (done_bool) {
     var dataurl = c.toDataURL('image/jpeg', 1.0);
