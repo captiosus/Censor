@@ -4,6 +4,12 @@ var savebar = document.getElementById("savebar");
 var main = document.getElementById("main");
 var instructions = document.getElementById("instructions");
 var currfilename;
+var upload_more = document.getElementById("upload-more");
+var done = document.getElementById("done");
+var c = document.getElementById('censorme');
+var ctx = c.getContext("2d");
+var thumb_src;
+
 Dropzone.options.imagedropzone = {
   paramName:"image",
   maxFilesize: 2,
@@ -23,14 +29,15 @@ Dropzone.options.imagedropzone = {
             thumbnail.style.width="auto";
         }
         if (thumbnail.getAttribute('alt') == file.name){
-          console.log("match!");
-          thumbnail.parentNode.addEventListener('click', function(){
-            console.log("processingfile", file.name);
+          thumbnail.parentNode.parentNode.parentNode.onclick = function(){
             currfilename = file.name;
+            c.style.display = "none";
+            ctx.clearRect(0,0,600, 450);
             main.style.display = "none";
             loading.style.display = "block";
+            thumb_src = this.getElementsByTagName("img")[0].getAttribute('src');
             thisdropzone.processFile(file);
-          });
+          };
         }
       }
     });
@@ -38,11 +45,10 @@ Dropzone.options.imagedropzone = {
       drawBoxes(file, res);
       loading.style.display = "none";
       savebar.style.display = "block";
-      main.innerHTML = "<img src=\"" + thumbnail.getAttribute('src') + "\"/>";
     });
     this.on('addedfile', function(file) {
       if (!file.type.match(/image.*/)) {
-        thisdropzone.emit("thumbnail", file, "http://path/to/image");
+        this.emit("thumbnail", file, "../image/pdf.png");
       }
       instructions.innerHTML = "CLICK ON IMAGE ON SIDEBAR OR UPLOAD MORE IMAGES";
     });
@@ -51,32 +57,56 @@ Dropzone.options.imagedropzone = {
     done();
   }
 }
+upload_more.addEventListener("click", function(e) {
+  e.preventDefault();
+  c.style.display = "none";
+  main.style.display ="block";
+  savebar.style.display = "none";
+})
 
-var c = document.getElementById('censorme'), ctx, height, boxes = [];
-var height
-var boxes = []
+var height;
+var width;
+var boxes = [];
 var drawBoxes = function(image, boxfile){
   c.style.display = 'block';
-  ctx = c.getContext("2d");
   var img = new Image();
-  img.src = thumbnail.getAttribute('src')
+  img.src = thumb_src;
   var aspect_ratio = image.height / image.width;
-  height = 600 * aspect_ratio;
+  var inv_aspect_ratio = image.width / image.height;
+  if (image.width > 600) {
+    height = 600 * aspect_ratio;
+    width = 600;
+    if (height > 450) {
+      height = 450;
+      width = 450 * width / height;
+    }
+  }
+  else if (image.height > 450) {
+    width = 450 * inv_aspect_ratio;
+    height = 450;
+    if (width > 600) {
+      width = 600;
+      height = 600 * height / width;
+    }
+  }
+  else {
+    height = image.height;
+    width = image.width;
+  }
+  var margin_x = (600 - width) / 2;
   var hratio = height / image.height;
-  var wratio = 600 / image.width;
-  ctx.drawImage(img, 0, 0, 600, height);
+  var wratio = width / image.width;
+  ctx.drawImage(img, margin_x, 0, width, height);
   boxfile = boxfile.split('\n');
   for (var line in boxfile){
     line = boxfile[line].split(' ');//Char = index 0; xtopleft = index 1; ytopleft = index 2; xbottomright = index 3; ybottomright = index 4
     var box = [line[0]];
-    console.log(line);
     for (var i = 1; i < line.length - 1; i++){
       box.push( parseInt(line[i]) * wratio );
       box.push( parseInt(line[++i]) * hratio);
     }
-    console.log(box);
     ctx.beginPath();
-    ctx.rect(box[1], height - box[2], Math.abs(box[3] - box[1]), -1 * Math.abs(box[4] - box[2]));
+    ctx.rect(box[1] + margin_x, height - box[2], Math.abs(box[3] - box[1]), -1 * Math.abs(box[4] - box[2]));
     ctx.stroke();
     boxes.push(box);
   }
@@ -103,4 +133,7 @@ document.getElementById('save').addEventListener('click', function(){
   var a = document.createElement('a');
   a.setAttribute('download', 'censored-'+ currfilename.replace(/\.[^/.]+$/, "") + ".jpg");
   a.setAttribute('href', dataurl);
+  console.log(a);
+  console.log(document.getElementsByTagName('body'));
+  document.getElementsByTagName('body')[0].appendChild(a);
 })
