@@ -3,6 +3,7 @@ var loading = document.getElementById("loading");
 var savebar = document.getElementById("savebar");
 var main = document.getElementById("main");
 var instructions = document.getElementById("instructions");
+var currfilename;
 var upload_more = document.getElementById("upload-more");
 var done = document.getElementById("done");
 var save = document.getElementById("save");
@@ -10,6 +11,7 @@ var c = document.getElementById('censorme');
 var ctx = c.getContext("2d");
 var done_bool = false;
 var thumb_src;
+
 Dropzone.options.imagedropzone = {
   paramName:"image",
   maxFilesize: 2,
@@ -22,22 +24,23 @@ Dropzone.options.imagedropzone = {
       for(var i = 0; i < thumbnails.length; i++){
         thumbnail = thumbnails[i];
         if(thumbnail.getAttribute("width")>=thumbnail.getAttribute("height")){
-            thumbnail.style.width="160px";
-            thumbnail.style.height="auto";
+          thumbnail.style.width="160px";
+          thumbnail.style.height="auto";
         }else{
-            thumbnail.style.height="160px";
-            thumbnail.style.width="auto";
+          thumbnail.style.height="160px";
+          thumbnail.style.width="auto";
         }
         if (thumbnail.getAttribute('alt') == file.name){
-          (((thumbnail.parentNode).parentNode).parentNode).onclick = function(){
-            done_bool = false;
-            save.classList.add("not-done");
-            c.style.display = "none";
-            ctx.clearRect(0,0,600, 450);
-            main.style.display = "none";
-            loading.style.display = "block";
-            thumb_src = this.getElementsByTagName("img")[0].getAttribute('src');
-            thisdropzone.processFile(file);
+          done_bool = false;
+          save.classList.add("not-done");
+          thumbnail.parentNode.parentNode.parentNode.onclick = function(){
+          currfilename = file.name;
+          c.style.display = "none";
+          ctx.clearRect(0,0,600, 450);
+          main.style.display = "none";
+          loading.style.display = "block";
+          thumb_src = this.getElementsByTagName("img")[0].getAttribute('src');
+          thisdropzone.processFile(file);
           };
         }
       }
@@ -69,7 +72,6 @@ done.addEventListener("click", function(e) {
   save.classList.remove("not-done");
 });
 
-var c, ctx, height, boxes = [];
 var height;
 var width;
 var boxes = [];
@@ -117,6 +119,7 @@ var drawBoxes = function(image, boxfile){
     boxes.push(box);
   }
   c.addEventListener('click', blotsquare);
+  c.addEventListener('mouseover', blotpointer);
 };
 
 var blotsquare = function(e){
@@ -125,9 +128,30 @@ var blotsquare = function(e){
     var box = boxes[charindex];
     var x1=box[1], x2=box[3], y1 = height - box[2], y2=(height - box[2]) + (-1 * Math.abs(box[4] - box[2]));
     if (x1 <= x && x <= x2 && y1 >= y && y >= y2){
-      console.log(box);
-      console.log(x1,y1,x2,y2,x,y);
       ctx.fillRect(box[1], height - box[2], Math.abs(box[3] - box[1]), -1 * Math.abs(box[4] - box[2]));
     }
   }
 }
+
+var blotpointer = function(e){
+  var rect = c.getBoundingClientRect();
+  var x = (e.clientX - rect.left) / (rect.right - rect.left) * canvas.width;
+  var y = (e.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height;
+  for (var charindex in boxes){
+    var box = boxes[charindex];
+    var x1=box[1], x2=box[3], y1 = height - box[2], y2=(height - box[2]) + (-1 * Math.abs(box[4] - box[2]));
+    if (x1 <= x && x <= x2 && y1 >= y && y >= y2){
+      console.log('hello');
+      document.body.style.cursor = "pointer";
+    }
+  }
+}
+
+save.addEventListener('click', function(){
+  var dataurl = c.toDataURL('image/jpeg', 1.0);
+  dataurl = dataurl.replace('image/jpeg', "application/octet-stream");
+  var a = document.createElement('a');
+  a.setAttribute('download', 'censored-'+ currfilename.replace(/\.[^/.]+$/, "") + ".jpg");
+  a.setAttribute('href', dataurl);
+  a.click();
+})
