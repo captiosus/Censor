@@ -3,6 +3,7 @@ var loading = document.getElementById("loading");
 var savebar = document.getElementById("savebar");
 var main = document.getElementById("main");
 var instructions = document.getElementById("instructions");
+var currfilename;
 Dropzone.options.imagedropzone = {
   paramName:"image",
   maxFilesize: 2,
@@ -24,7 +25,8 @@ Dropzone.options.imagedropzone = {
         if (thumbnail.getAttribute('alt') == file.name){
           console.log("match!");
           thumbnail.parentNode.addEventListener('click', function(){
-            console.log("processingfile", file.filename);
+            console.log("processingfile", file.name);
+            currfilename = file.name;
             main.style.display = "none";
             loading.style.display = "block";
             thisdropzone.processFile(file);
@@ -50,11 +52,10 @@ Dropzone.options.imagedropzone = {
   }
 }
 
-var c, ctx, height, boxes = [];
+var c = document.getElementById('censorme'), ctx, height, boxes = [];
 var height
 var boxes = []
 var drawBoxes = function(image, boxfile){
-  c = document.getElementById('censorme');
   c.style.display = 'block';
   ctx = c.getContext("2d");
   var img = new Image();
@@ -94,3 +95,12 @@ var blotsquare = function(e){
     }
   }
 }
+
+document.getElementById('save').addEventListener('click', function(){
+  console.log("hello");
+  var dataurl = c.toDataURL('image/jpeg', 1.0);
+  dataurl = dataurl.replace('image/jpeg', "application/octet-stream");
+  var a = document.createElement('a');
+  a.setAttribute('download', 'censored-'+ currfilename.replace(/\.[^/.]+$/, "") + ".jpg");
+  a.setAttribute('href', dataurl);
+})
