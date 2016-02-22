@@ -25,7 +25,8 @@
 .image-list{
   margin-top:0px;
   margin-bottom:0px;
-  min-height:500px;
+  min-height:550px;
+  max-height:550px;
   width:200px;
   overflow:auto;
   float:left;
@@ -40,6 +41,8 @@
   text-align:center;
   line-height: 90px;
   margin-top: 10px;
+  vertical-align:center;
+  align-items:center;
 }
 
 .image-list li:first-child{
