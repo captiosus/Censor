@@ -69,9 +69,10 @@ app.post('/upload', function(req, res){
   var files = req.files;
   for (var i = 0; i < files.length; i++){
     var tessoptions = {
-      config:"hocr"
-    }
+      "config":"makebox"
+    };
     var file = files[i];
+    console.log(file);
     if (file.mimetype == "application/pdf"){
       var newfilepath = __dirname + "/uploads/" + file.filename.replace(/\.[^/.]+$/, "") + ".tiff";
       var im = gm.subClass({imagemagick:true});
@@ -90,7 +91,9 @@ app.post('/upload', function(req, res){
         }
       });
     }else{
+      console.log("step 2");
       tesseract.process(file.filepath, tessoptions, function(file, text){
+        console.log("text");
         res.send(text);
       });
     }
