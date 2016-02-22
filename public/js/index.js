@@ -38,7 +38,6 @@ function repeat_select() {
   if (!selected) {
     selected = true;
     var selected_curr;
-    console.log(selector[0].style.backgroundColor);
     for (var i = 0; i < selector.length; i++) {
       if (selector[i].style.backgroundColor == SELECTOR_SELECTED) {
         selected_past = i;
@@ -102,7 +101,7 @@ function selector_func() {
   red_line.classList.remove("check-line");
   clearTimeout(check_timeout);
   clearInterval(repeat);
-  repeat = setInterval(repeat_select, 5000);
+  repeat = setInterval(repeat_select, 7000);
   add_class = "";
   if (!selected) {
     selected = true;
@@ -159,13 +158,41 @@ function selector_func() {
     }, 5);
   }
 }
+function censor_boxes() {
+  var selected_curr;
+  for (var i = 0; i < selector.length; i++) {
+    if (selector[i].style.backgroundColor == SELECTOR_SELECTED) {
+      selected_curr = i;
+    }
+  }
+  console.log(selected_curr);
+  if (selected_curr === 2) {
+    setTimeout(function() {
+      passportBlacked(ctx, 1200);
+    }, 500);
+  }
+  else if (selected_curr === 1) { 
+    setTimeout(function() {
+      textBlacked(ctx, 600);
+    }, 500);
+  }
+  else {
+    setTimeout(function() {
+      checkBlacked(ctx, 0);
+    }, 500);
+  }
+}
+
+red_line.addEventListener("animationend", censor_boxes);
+red_line.addEventListener("webkitAnimationEnd", censor_boxes);
+red_line.addEventListener("oAnimationEnd", censor_boxes);
+red_line.addEventListener("MSAnimationEnd", censor_boxes);
 
 var i;
 selector[0].style.backgroundColor = SELECTOR_SELECTED;
 for (i = 0; i < selector.length; i++) {
   selector[i].addEventListener("click", selector_func);
 }
-
 //draws text document
 function text(c, shift){
 c.beginPath();
@@ -350,32 +377,35 @@ function draw(c) {
   text(c, 600);
   passport(c, 1200);
 }
-function checkBlacked(c){
+function checkBlacked(c, shift){
     c.beginPath();
-    c.rect(78,125,125,50);
-    c.rect(65,315,280,16);
+    c.rect(78+shift,125,125,14);
+    c.rect(78+shift,141,125,14);
+    c.rect(78+shift,157,125,14);
+    c.rect(65+shift,315,280,16);
     c.fill();
     c.stroke();
     c.closePath();
 }
-function passportBlacked(c){
+function passportBlacked(c, shift){
     c.beginPath();
-    c.rect(428,90,65,10);
-    c.rect(90,340,420,25);
-    c.rect(252,120,40,10);
-    c.rect(252,195,70,10);
+    c.rect(428+shift,90,65,10);
+    c.rect(90+shift,340,420,25);
+    c.rect(252+shift,120,40,10);
+    c.rect(252+shift,195,70,10);
     c.fill();
     c.stroke();
     c.closePath();
 }
-function textBlacked(c){
+function textBlacked(c, shift){
     c.beginPath();
-    c.rect(208,166,110,7);
-    c.rect(200,73,30,7);
-    c.rect(175,83,100,20);
-    c.rect(160,306,45,7);
-    c.rect(287,337,145,7);
-    c.rect(355,405,80,9);
+    c.rect(208+shift,166,110,7);
+    c.rect(200+shift,73,30,7);
+    c.rect(175+shift,83,100,7);
+    c.rect(175+shift,93,100,7);
+    c.rect(160+shift,306,45,7);
+    c.rect(287+shift,337,145,7);
+    c.rect(355+shift,405,80,9);
     c.fill();
     c.stroke();
     c.closePath();
