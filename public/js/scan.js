@@ -44,6 +44,7 @@ var drawBoxes = function(image, boxfile){
   var img = new Image();
   img.src = thumbnail.getAttribute('src')
   ctx.drawImage(img, 0, 0);
+  
   boxfile = boxfile.split('\n');
   var boxes = []
   for (var line in boxfile){
