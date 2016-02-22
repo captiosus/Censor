@@ -11,6 +11,7 @@ var c = document.getElementById('censorme');
 var ctx = c.getContext("2d");
 var done_bool = false;
 var thumb_src;
+var loop;
 
 Dropzone.options.imagedropzone = {
   paramName:"image",
@@ -121,7 +122,6 @@ var drawBoxes = function(image, boxfile){
     boxes.push(box);
   }
   c.addEventListener('click', blotsquare);
-  c.addEventListener('mouseover', blotpointer);
 };
 
 var blotted = []
@@ -149,7 +149,8 @@ var clear = function(){
   }
 }
 
-var blotpointer = function(e){
+
+function blothover(e) {
   var rect = c.getBoundingClientRect();
   var x = (e.clientX - rect.left) / (rect.right - rect.left) * c.width;
   var y = (e.clientY - rect.top) / (rect.bottom - rect.top) * c.height;

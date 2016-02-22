@@ -203,3 +203,6 @@
   background-color: gray;
   cursor: default;
 }
+#censorme:hover {
+  cursor:pointer;
+}
