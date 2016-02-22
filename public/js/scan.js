@@ -5,8 +5,10 @@ var main = document.getElementById("main");
 var instructions = document.getElementById("instructions");
 var upload_more = document.getElementById("upload-more");
 var done = document.getElementById("done");
+var save = document.getElementById("save");
 var c = document.getElementById('censorme');
 var ctx = c.getContext("2d");
+var done_bool = false;
 var thumb_src;
 Dropzone.options.imagedropzone = {
   paramName:"image",
@@ -28,6 +30,8 @@ Dropzone.options.imagedropzone = {
         }
         if (thumbnail.getAttribute('alt') == file.name){
           (((thumbnail.parentNode).parentNode).parentNode).onclick = function(){
+            done_bool = false;
+            save.classList.add("not-done");
             c.style.display = "none";
             ctx.clearRect(0,0,600, 450);
             main.style.display = "none";
@@ -59,7 +63,11 @@ upload_more.addEventListener("click", function(e) {
   c.style.display = "none";
   main.style.display ="block";
   savebar.style.display = "none";
-})
+});
+done.addEventListener("click", function(e) {
+  done_bool = true;
+  save.classList.remove("not-done");
+});
 
 var c, ctx, height, boxes = [];
 var height;
