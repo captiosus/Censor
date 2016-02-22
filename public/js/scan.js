@@ -58,27 +58,68 @@ upload_more.addEventListener("click", function(e) {
   e.preventDefault();
   c.style.display = "none";
   main.style.display ="block";
+  savebar.style.display = "none";
 })
 
+var c, ctx, height, boxes = [];
+var height;
+var width;
+var boxes = [];
 var drawBoxes = function(image, boxfile){
   c.style.display = 'block';
   var img = new Image();
   img.src = thumb_src;
   var aspect_ratio = image.height / image.width;
-  var height = 600 * aspect_ratio;
-  var ratio = height / image.height;
-  ctx.drawImage(img, 0, 0, 600, height);
+  var inv_aspect_ratio = image.width / image.height;
+  if (image.width > 600) {
+    height = 600 * aspect_ratio;
+    width = 600;
+    if (height > 450) {
+      height = 450;
+      width = 450 * width / height;
+    }
+  }
+  else if (image.height > 450) {
+    width = 450 * inv_aspect_ratio;
+    height = 450;
+    if (width > 600) {
+      width = 600;
+      height = 600 * height / width;
+    }
+  }
+  else {
+    height = image.height;
+    width = image.width;
+  }
+  var margin_x = (600 - width) / 2;
+  var hratio = height / image.height;
+  var wratio = width / image.width;
+  ctx.drawImage(img, margin_x, 0, width, height);
   boxfile = boxfile.split('\n');
-  var boxes = []
   for (var line in boxfile){
     line = boxfile[line].split(' ');//Char = index 0; xtopleft = index 1; ytopleft = index 2; xbottomright = index 3; ybottomright = index 4
     var box = [line[0]];
     for (var i = 1; i < line.length - 1; i++){
-      box.push( parseInt(line[i]) * ratio );
+      box.push( parseInt(line[i]) * wratio );
+      box.push( parseInt(line[++i]) * hratio);
     }
     ctx.beginPath();
-    ctx.rect(box[1], height - box[2], Math.abs(box[3] - box[1]), -1 * Math.abs(box[4] - box[2]));
+    ctx.rect(box[1] + margin_x, height - box[2], Math.abs(box[3] - box[1]), -1 * Math.abs(box[4] - box[2]));
     ctx.stroke();
     boxes.push(box);
   }
+  c.addEventListener('click', blotsquare);
 };
+
+var blotsquare = function(e){
+  var x = e.offsetX, y = e.offsetY;
+  for (var charindex in boxes){
+    var box = boxes[charindex];
+    var x1=box[1], x2=box[3], y1 = height - box[2], y2=(height - box[2]) + (-1 * Math.abs(box[4] - box[2]));
+    if (x1 <= x && x <= x2 && y1 >= y && y >= y2){
+      console.log(box);
+      console.log(x1,y1,x2,y2,x,y);
+      ctx.fillRect(box[1], height - box[2], Math.abs(box[3] - box[1]), -1 * Math.abs(box[4] - box[2]));
+    }
+  }
+}
