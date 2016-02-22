@@ -23,13 +23,12 @@ Dropzone.options.imagedropzone = {
         }
       }
     })
-    this.on('queuecomplete', function(){
-      console.log("Queue completed");
-    });
     this.on('success', function(file, res, err){
-
       console.log(res);
       drawBoxes(file, res);
+      loading.style.display = "none";
+      savebar.style.display = "block"
+      main.innerHTML = "<img src=\"" + thumbnail.getAttribute('src') + "\"/>"
     })
   },
   accept:function(file, done){
@@ -40,13 +39,12 @@ Dropzone.options.imagedropzone = {
 
 var drawBoxes = function(image, boxfile){
   var c = document.getElementById('censorme');
-  console.log(c);
-  c.style.visibility = 'visible';
-  c.style.zIndex = 2;
+  c.style.display = 'block';
   var ctx = c.getContext("2d");
-  // ctx.drawImage(, 0, 0);
+  var img = new Image();
+  img.src = thumbnail.getAttribute('src')
+  ctx.drawImage(img, 0, 0);
   boxfile = boxfile.split('\n');
-  console.log(boxfile);
   var boxes = []
   for (var line in boxfile){
     line = boxfile[line].split(' ');//Char = index 0; xtopleft = index 1; ytopleft = index 2; xbottomright = index 3; ybottomright = index 4
