@@ -2,6 +2,7 @@ var thumbnail;
 var loading = document.getElementById("loading");
 var savebar = document.getElementById("savebar");
 var main = document.getElementById("main");
+var instructions = document.getElementById("instructions");
 Dropzone.options.imagedropzone = {
   paramName:"image",
   maxFilesize: 2,
@@ -37,8 +38,12 @@ Dropzone.options.imagedropzone = {
       savebar.style.display = "block";
       main.innerHTML = "<img src=\"" + thumbnail.getAttribute('src') + "\"/>";
     });
-      savebar.style.display = "block"
-    })
+    this.on('addedfile', function(file) {
+      if (!file.type.match(/image.*/)) {
+        myDropzone.emit("thumbnail", file, "http://path/to/image");
+      }
+      instructions.innerHTML = "CLICK ON IMAGE ON SIDEBAR OR UPLOAD MORE IMAGES";
+    });
   },
   accept:function(file, done){
     done();
