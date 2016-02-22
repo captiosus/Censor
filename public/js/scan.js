@@ -3,6 +3,7 @@ var loading = document.getElementById("loading");
 var savebar = document.getElementById("savebar");
 var main = document.getElementById("main");
 var instructions = document.getElementById("instructions");
+var upload_more = document.getElementById("upload-more");
 Dropzone.options.imagedropzone = {
   paramName:"image",
   maxFilesize: 2,
