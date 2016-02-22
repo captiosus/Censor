@@ -1,23 +1,34 @@
 Dropzone.options.imagedropzone = {
   paramName:"image",
   maxFilesize: 2,
-  uploadMultiple: true,
+  uploadMultiple: false,
   autoProcessQueue:false,
   init:function(){
     var submitButton = document.querySelector("#upload")
-    myDropzone = this;
-
+    var thisdropzone = this;
     submitButton.addEventListener("click", function() {
-      myDropzone.processQueue();
+      this.processQueue();
     });
 
+    this.on('thumbnail', function(file, dataUrl){
+      var thumbnails = document.getElementById('image-list').getElementsByTagName('img');
+      for(var i = 0; i < thumbnails.length; i++){
+        var thumbnail = thumbnails[i];
+        if (thumbnail.getAttribute('alt') == file.name){
+          console.log("match!");
+          thumbnail.onclick =  function(){
+            console.log("processingfile", file.filename);
+            thisdropzone.processFile(file);
+          };
+        }
+      }
+    })
     this.on('queuecomplete', function(){
       console.log("Queue completed");
     });
     this.on('success', function(file, res, err){
       console.log(res);
       console.log("received response");
-      document.getElementById("response").html = res;
     })
   },
   accept:function(file, done){
