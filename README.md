@@ -14,13 +14,15 @@ It's Classified is a website dedicated to protecting sensitive information on co
 * Swig
 * Tesseract
 * Dropzone.js
+* Graphics Magick/ Image Magick
+* Express
 
 ## Setup
 Before running make sure to run these commands to download necessary libraries
 ```
 npm install
 sudo apt-get install tesseract-ocr
-sudo apt-get install graphicmagick
+sudo apt-get install graphicsmagick
 ```
 Use the following command to run server
 ```
