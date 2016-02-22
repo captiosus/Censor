@@ -83,7 +83,6 @@ app.post('/upload', function(req, res){
           file.mimetype = "image/tiff";
 
           tesseract.process(file.filepath, tessoptions, function(err, text){
-            req.session.
             res.send(text);
           });
         }
