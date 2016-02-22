@@ -30,7 +30,6 @@ app.get('/scan', function(req, res){
   res.render('scan');
 });
 
-
 app.get('/view', function(req, res){
   res.render('view', {imageName:imageName});
 });
