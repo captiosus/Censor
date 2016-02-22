@@ -135,8 +135,8 @@ var blotsquare = function(e){
 
 var blotpointer = function(e){
   var rect = c.getBoundingClientRect();
-  var x = (e.clientX - rect.left) / (rect.right - rect.left) * canvas.width;
-  var y = (e.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height;
+  var x = (e.clientX - rect.left) / (rect.right - rect.left) * c.width;
+  var y = (e.clientY - rect.top) / (rect.bottom - rect.top) * c.height;
   for (var charindex in boxes){
     var box = boxes[charindex];
     var x1=box[1], x2=box[3], y1 = height - box[2], y2=(height - box[2]) + (-1 * Math.abs(box[4] - box[2]));
@@ -148,10 +148,12 @@ var blotpointer = function(e){
 }
 
 save.addEventListener('click', function(){
-  var dataurl = c.toDataURL('image/jpeg', 1.0);
-  dataurl = dataurl.replace('image/jpeg', "application/octet-stream");
-  var a = document.createElement('a');
-  a.setAttribute('download', 'censored-'+ currfilename.replace(/\.[^/.]+$/, "") + ".jpg");
-  a.setAttribute('href', dataurl);
-  a.click();
+  if (done_bool) {
+    var dataurl = c.toDataURL('image/jpeg', 1.0);
+    dataurl = dataurl.replace('image/jpeg', "application/octet-stream");
+    var a = document.createElement('a');
+    a.setAttribute('download', 'censored-'+ currfilename.replace(/\.[^/.]+$/, "") + ".jpg");
+    a.setAttribute('href', dataurl);
+    a.click();
+  }
 })
