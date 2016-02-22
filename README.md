@@ -17,15 +17,15 @@ It's Classified is a website dedicated to protecting sensitive information on co
 
 ## Setup
 Before running make sure to run these commands to download necessary libraries
-'''
+```
 npm install
 sudo apt-get install tesseract-ocr
 sudo apt-get install graphicmagick
-'''
+```
 Use the following command to run server
-'''
+```
 nodejs app.js
-'''
+```
 
 ## Authors
 | Name        |  Role      |
