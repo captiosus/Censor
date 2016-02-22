@@ -2,16 +2,13 @@ var thumbnail;
 var loading = document.getElementById("loading");
 var savebar = document.getElementById("savebar");
 var main = document.getElementById("main");
+var instructions = document.getElementById("instructions");
 Dropzone.options.imagedropzone = {
   paramName:"image",
   maxFilesize: 2,
   uploadMultiple: false,
   autoProcessQueue:false,
   init:function(){
-<<<<<<< HEAD
-    var submitButton = document.querySelector("#upload");
-=======
->>>>>>> b94fc88494bb7a395d50e8a8f05158fb5f228c2e
     var thisdropzone = this;
     this.on('thumbnail', function(file, dataUrl){
       var thumbnails = document.getElementById('image-list').getElementsByTagName('img');
@@ -25,49 +22,31 @@ Dropzone.options.imagedropzone = {
             thumbnail.style.width="auto";
         }
         if (thumbnail.getAttribute('alt') == file.name){
-<<<<<<< HEAD
-          console.log("match!");
-          thumbnail.onclick = function(){
-            console.log("processingfile", file.filename);
-            main.innerHTML = "";
-            loading.style.display = "block";
-=======
           thumbnail.onclick =  function(){
->>>>>>> b94fc88494bb7a395d50e8a8f05158fb5f228c2e
             thisdropzone.processFile(file);
             main.style.display = "none";
             loading.style.display = "block";
           };
         }
       }
-<<<<<<< HEAD
     });
-    this.on('queuecomplete', function(){
-      console.log("Queue completed");
-    });
-=======
-    })
->>>>>>> b94fc88494bb7a395d50e8a8f05158fb5f228c2e
     this.on('success', function(file, res, err){
       console.log(res);
       drawBoxes(file, res);
       loading.style.display = "none";
-<<<<<<< HEAD
-      savebar.style.display = "block";
-      main.innerHTML = "<img src=\"" + thumbnail.getAttribute('src') + "\"/>";
-    });
-=======
       savebar.style.display = "block"
     })
->>>>>>> b94fc88494bb7a395d50e8a8f05158fb5f228c2e
+    this.on('addedfile', function(file) {
+      if (!file.type.match(/image.*/)) {
+        myDropzone.emit("thumbnail", file, "http://path/to/image");
+      }
+      instructions.innerHTML = "CLICK ON IMAGE ON SIDEBAR OR UPLOAD MORE IMAGES";
+    });
   },
   accept:function(file, done){
     console.log("new file!", file);
     done();
   },
-<<<<<<< HEAD
-
-=======
 }
 
 var drawBoxes = function(image, boxfile){
@@ -94,5 +73,4 @@ var drawBoxes = function(image, boxfile){
     ctx.stroke();
     boxes.push(box);
   }
->>>>>>> b94fc88494bb7a395d50e8a8f05158fb5f228c2e
 };
