@@ -1,24 +1,23 @@
+var thumbnail;
+var loading = document.getElementById("loading");
+var savebar = document.getElementById("savebar");
+var main = document.getElementById("main");
 Dropzone.options.imagedropzone = {
   paramName:"image",
   maxFilesize: 2,
   uploadMultiple: false,
   autoProcessQueue:false,
   init:function(){
-    // var submitButton = document.querySelector("#upload")
     var thisdropzone = this;
-    // submitButton.addEventListener("click", function() {
-    //   thisdropzone.processQueue();
-    // });
-
     this.on('thumbnail', function(file, dataUrl){
       var thumbnails = document.getElementById('image-list').getElementsByTagName('img');
       for(var i = 0; i < thumbnails.length; i++){
-        var thumbnail = thumbnails[i];
+        thumbnail = thumbnails[i];
         if (thumbnail.getAttribute('alt') == file.name){
-          console.log("match!");
           thumbnail.onclick =  function(){
-            console.log("processingfile", file.filename);
             thisdropzone.processFile(file);
+            main.style.display = "none";
+            loading.style.display = "block";
           };
         }
       }
