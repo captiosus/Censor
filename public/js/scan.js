@@ -1,3 +1,7 @@
+var main = document.getElementById("main");
+var loading = document.getElementById("loading");
+var savebar = document.getElementById("savebar");
+var thumbnail;
 Dropzone.options.imagedropzone = {
   paramName:"image",
   maxFilesize: 2,
@@ -6,18 +10,17 @@ Dropzone.options.imagedropzone = {
   init:function(){
     var submitButton = document.querySelector("#upload")
     var thisdropzone = this;
-    submitButton.addEventListener("click", function() {
-      this.processQueue();
-    });
 
     this.on('thumbnail', function(file, dataUrl){
       var thumbnails = document.getElementById('image-list').getElementsByTagName('img');
       for(var i = 0; i < thumbnails.length; i++){
-        var thumbnail = thumbnails[i];
+        thumbnail = thumbnails[i];
         if (thumbnail.getAttribute('alt') == file.name){
           console.log("match!");
           thumbnail.onclick =  function(){
             console.log("processingfile", file.filename);
+            main.innerHTML = "";
+            loading.style.display = "block";
             thisdropzone.processFile(file);
           };
         }
@@ -29,6 +32,9 @@ Dropzone.options.imagedropzone = {
     this.on('success', function(file, res, err){
       console.log(res);
       console.log("received response");
+      loading.style.display = "none";
+      savebar.style.display = "block"
+      main.innerHTML = "<img src=\"" + thumbnail.getAttribute('src') + "\"/>"
     })
   },
   accept:function(file, done){
