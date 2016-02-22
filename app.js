@@ -84,12 +84,14 @@ app.post('/upload', function(req, res){
 
           tesseract.process(file.filepath, tessoptions, function(err, text){
             res.send(text);
+            fs.unlink(filepath);
           });
         }
       });
     }else{
       tesseract.process(file.filepath, tessoptions, function(file, text){
         res.send(text);
+        fs.unlink(filepath);
       });
     }
   }
