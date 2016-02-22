@@ -86,8 +86,9 @@ var blotsquare = function(e){
   var x = e.offsetX, y = e.offsetY;
   for (var charindex in boxes){
     var box = boxes[charindex];
-    var x1=box[1], x2=box[3], y1=height - box[2], y2=box[2] + (-1 * Math.abs(box[4] - box[2]));
+    var x1=box[1], x2=box[3], y1 = height - box[2], y2=(height - box[2]) + (-1 * Math.abs(box[4] - box[2]));
     if (x1 <= x && x <= x2 && y1 >= y && y >= y2){
+      console.log(box);
       console.log(x1,y1,x2,y2,x,y);
       ctx.fillRect(box[1], height - box[2], Math.abs(box[3] - box[1]), -1 * Math.abs(box[4] - box[2]));
     }
