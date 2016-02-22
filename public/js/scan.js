@@ -14,7 +14,7 @@ Dropzone.options.imagedropzone = {
       for(var i = 0; i < thumbnails.length; i++){
         thumbnail = thumbnails[i];
         if (thumbnail.getAttribute('alt') == file.name){
-          thumbnail.onclick =  function(){
+          thumbnail.parentNode.onclick =  function(){
             thisdropzone.processFile(file);
             main.style.display = "none";
             loading.style.display = "block";
@@ -43,6 +43,7 @@ var drawBoxes = function(image, boxfile){
   img.src = thumbnail.getAttribute('src')
   var aspect_ratio = image.height / image.width;
   var height = 600 * aspect_ratio;
+  var ratio = height / image.height;
   ctx.drawImage(img, 0, 0, 600, height);
   boxfile = boxfile.split('\n');
   var boxes = []
@@ -51,11 +52,11 @@ var drawBoxes = function(image, boxfile){
     var box = [line[0]];
     console.log(line);
     for (var i = 1; i < line.length - 1; i++){
-      box.push( parseInt(line[i]) * 2 / 10 );
+      box.push( parseInt(line[i]) * ratio );
     }
     console.log(box);
     ctx.beginPath();
-    ctx.rect(box[1], c.height - box[2], Math.abs(box[3] - box[1]), -1 * Math.abs(box[4] - box[2]));
+    ctx.rect(box[1], height - box[2], Math.abs(box[3] - box[1]), -1 * Math.abs(box[4] - box[2]));
     ctx.stroke();
     boxes.push(box);
   }
