@@ -151,8 +151,8 @@ var clear = function(){
 
 var blotpointer = function(e){
   var rect = c.getBoundingClientRect();
-  var x = (e.clientX - rect.left) / (rect.right - rect.left) * canvas.width;
-  var y = (e.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height;
+  var x = (e.clientX - rect.left) / (rect.right - rect.left) * c.width;
+  var y = (e.clientY - rect.top) / (rect.bottom - rect.top) * c.height;
   for (var charindex in boxes){
     var box = boxes[charindex];
     var x1=box[1], x2=box[3], y1 = height - box[2], y2=(height - box[2]) + (-1 * Math.abs(box[4] - box[2]));
